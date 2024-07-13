@@ -28,7 +28,7 @@
                     String Option_D = request.getParameter("Option_D");
                     String Correct_Answer = request.getParameter("Correct_Answer");
 
-                    String insertSQL = "INSERT INTO question (Quiz_id, Question, Option_A, Option_B, Option_C, Option_D, Correct_Answer) VALUES (1, ?, ?, ?, ?, ?, ?)";
+                    String insertSQL = "INSERT INTO question (Quiz_id, Question, Option_A, Option_B, Option_C, Option_D, Correct_Answer) VALUES (2, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement pstmt = conn.prepareStatement(insertSQL);
                     pstmt.setString(1, Question);
                     pstmt.setString(2, Option_A);
@@ -38,11 +38,9 @@
                     pstmt.setString(6, Correct_Answer);
                     pstmt.executeUpdate();
                     out.println("Question"+Question);
-                   
-                    
                 } 
             } catch (Exception e) {
                 e.printStackTrace();
-                out.println("Catch block");
+                out.println("Catch block:"+e);
             }
         %>

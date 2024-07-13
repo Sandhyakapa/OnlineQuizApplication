@@ -1,3 +1,10 @@
+<%@ page import="java.util.*" %>
+
+<% 
+
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,38 +134,46 @@
         </style>
     </head>
     <body>
-        <h1>Create Quiz</h1>
-       <p style="text-align: center;">Provide the Quiz details here and we navigate you to add questions in the following screens.</p>
-        <form id="quizForm" action="CreateQuiz.jsp" method="POST">
+        <h3 style="text-align: center;">Create Quiz :: Question - <%= session.getAttribute("currentQuestion")%></h3>
+        <form id="quizForm" action="CreateQuizWithQuestionsPost.jsp" method="POST">
+            <!--<form  action="Questions.jsp" method="POST"></form>-->
             
             <div class="form-group">
-                <label for="question1">Subject:</label>
-                
-                <input type="text" id="Subject" name="Subject">
+                <label for="question1">Question :</label>
+                <textarea id="Question" name="Question" style="height: 100px;"></textarea>
             </div>
             <div class="form-group">
-                <label for="question1">Number of Questions:</label>
-                <input type="text" id="Total_Questions" name="Total_Questions" >
+                <label for="option1_1">Option A:</label>
+                <input type="text" id="Option_A" name="Option_A" >
             </div>
             <div class="form-group">
-                <label for="question1">Start Date:</label>
-                <input type="text" id="Start Date" name="start_date" >
+                <label for="option1_2">Option B:</label>
+                <input type="text" id="Option_B" name="Option_B" >
             </div>
             <div class="form-group">
-                <label for="question1">End Date:</label>
-                <input type="text" id="end_date" name="end_date" >
+                <label for="option1_3">Option C:</label>
+                <input type="text" id="Option_C" name="Option_C" >
             </div>
             <div class="form-group">
-                <label for="question1">Duration:</label>
-                <input type="text" id="Duration" name="Duration" >
+                <label for="option1_4">Option D:</label>
+                <input type="text" id="option_D" name="Option_D" >
             </div>
+            <div class="form-group">
+                <label for="correctAnswer">Correct Answer:</label>
+                <select id="Correct_Answer" name="Correct_Answer" style="width: 100px;height: 35px;">
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
+
+           
             
             <!--<input type="submit" value="Create Quiz">-->
             <div class="col-sm-6">
-                <input type="submit" value="Proceed" style="background-color:rgb(69, 207, 96);"> 
-                <!--<button class="btn btn-primary w-50 py-3" type="submit"  style="background-color:rgb(69, 207, 96) ;">Proceed</button>-->
-                <!-- <a class="btn btn-primary w-49 py-3"  style="background-color:rgb(87, 213, 83);" href="CreateQuiz.jsp">Proceed</a> -->
-                <a class="btn btn-primary w-49 py-3"  style="float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.html">Cancel</a>
+                <button class="btn btn-primary w-50 py-3" type="submit"  style="background-color:rgb(69, 207, 96) ;">Next</button>
+                <a class="btn btn-primary w-49 py-3"  style="width: 80px; float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.html">Exit</a>
             </div>
                 <div class="col-sm-6">
                    
