@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h2 {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        .options label {
+            cursor: pointer;
+        }
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 1em;
+        }
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Online Quiz</h1>
+    <form id="quiz-form" action="submit-quiz.jsp" method="post">
+        <div class="question">
+            <h2>1. What is the capital of France?</h2>
+            <ul class="options">
+                <li><label><input type="radio" name="question1" value="Paris" required> Paris</label></li>
+                <li><label><input type="radio" name="question1" value="London"> London</label></li>
+                <li><label><input type="radio" name="question1" value="Berlin"> Berlin</label></li>
+                <li><label><input type="radio" name="question1" value="Madrid"> Madrid</label></li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h2>2. What is the largest planet in our Solar System?</h2>
+            <ul class="options">
+                <li><label><input type="radio" name="question2" value="Earth" required> Earth</label></li>
+                <li><label><input type="radio" name="question2" value="Mars"> Mars</label></li>
+                <li><label><input type="radio" name="question2" value="Jupiter"> Jupiter</label></li>
+                <li><label><input type="radio" name="question2" value="Saturn"> Saturn</label></li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h2>3. Who wrote "Romeo and Juliet"?</h2>
+            <ul class="options">
+                <li><label><input type="radio" name="question3" value="William Shakespeare" required> William Shakespeare</label></li>
+                <li><label><input type="radio" name="question3" value="Charles Dickens"> Charles Dickens</label></li>
+                <li><label><input type="radio" name="question3" value="Mark Twain"> Mark Twain</label></li>
+                <li><label><input type="radio" name="question3" value="Jane Austen"> Jane Austen</label></li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h2>4. What is the chemical symbol for water?</h2>
+            <ul class="options">
+                <li><label><input type="radio" name="question4" value="H2O" required> H<sub>2</sub>O</label></li>
+                <li><label><input type="radio" name="question4" value="O2"> O<sub>2</sub></label></li>
+                <li><label><input type="radio" name="question4" value="CO2"> CO<sub>2</sub></label></li>
+                <li><label><input type="radio" name="question4" value="NaCl"> NaCl</label></li>
+            </ul>
+        </div>
+
+        <input type="submit" value="Submit Quiz">
+    </form>
+</div>
+
+<script>
+    document.getElementById('quiz-form').addEventListener('submit', function(event) {
+        let form = event.target;
+        let data = new FormData(form);
+        let answers = {};
+        
+        data.forEach((value, key) => {
+            answers[key] = value;
+        });
+        
+        console.log('User Answers:', answers);
+
+        // Prevent actual form submission for demo purposes
+        event.preventDefault();
+    });
+</script>
+
+</body>
+</html>
