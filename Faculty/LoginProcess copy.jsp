@@ -15,14 +15,10 @@
     ResultSet rs= statement.executeQuery(sql);
     
     //if(Email.equals(rs.getString(2)) && Password.equals(rs.getString(5))){
-        if (rs.next()) {
-            int facultyId = rs.getInt("FacultyID");
-            String facultyName = rs.getString("Name");
-            session.setAttribute("facultyId", facultyId);
-            session.setAttribute("facultyEmail", Email);
-            session.setAttribute("facultyName", facultyName);
+    if(rs.next())
+    {       
             response.sendRedirect("FacultyHome.html");
-        } 
+    }
     else{
         
         %>

@@ -34,11 +34,6 @@ if (currentQuestion < 3) {
     out.println("Quiz Name: " + quiz.Subject + "::Quiz StartDate:" + quiz.Start_date);
     out.println("Quiz Name: " + quiz.Subject + "::Quiz StartDate:" + quiz.Start_date + "  Duration: " + quiz.duration + "  Total_Questions:" + quiz.Total_Questions);
     // first insert for quiz table
-    Integer facultyId = (Integer) session.getAttribute("facultyId");
-    if (facultyId == null) {
-        response.sendRedirect("LoginProcess.jsp");
-        return;
-    }
 
     Connection conn = null;
     PreparedStatement quizPs = null;
@@ -49,15 +44,13 @@ if (currentQuestion < 3) {
         // out.println("Email=" + Email);
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
-        //String sql = "insert into quiz(Subject, Start_date, end_date, Duration, Total_Questions) values(?,?,?,?,?)";
-        String sql = "insert into quiz(Subject, Start_date, end_date, Duration, Total_Questions, Created_By) values(?,?,?,?,?,?)";
+        String sql = "insert into quiz(Subject, Start_date, end_date, Duration, Total_Questions) values(?,?,?,?,?)";
         quizPs = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         quizPs.setString(1, quiz.Subject);
         quizPs.setString(2, quiz.Start_date);
         quizPs.setString(3, quiz.end_date);
         quizPs.setInt(4, quiz.duration);
         quizPs.setInt(5, quiz.Total_Questions);
-        quizPs.setInt(6, facultyId);
         res = quizPs.executeUpdate();
 
         if (res > 0) {
@@ -97,6 +90,6 @@ if (currentQuestion < 3) {
         }
     }
 
-    //response.sendRedirect("QuizCreated.jsp");
+    response.sendRedirect("QuizCreated.jsp");
 }
 %>

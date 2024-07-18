@@ -16,7 +16,7 @@ public class Quiz {
 	{
 	}
     public HashMap<Integer, Question> Questions = new HashMap();
-    public Quiz(int Quiz_id, String Subject, String Start_date, String End_date, String Created_time, int duration, int Total_Questions, int Created_by){
+    public Quiz(int Quiz_id, String Subject, String Start_date, String end_date, String Created_time, int duration, int Total_Questions, int Created_by){
         this.Quiz_id = Quiz_id;
         this.Subject = Subject;
         this.Start_date = Start_date;

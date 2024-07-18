@@ -17,7 +17,7 @@
     //if(Email.equals(rs.getString(2)) && Password.equals(rs.getString(5))){
     if(rs.next())
     {       
-            response.sendRedirect("Home.html");
+            response.sendRedirect("StudentHome.html");
     }
     else{
         

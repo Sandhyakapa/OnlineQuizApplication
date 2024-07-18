@@ -156,7 +156,7 @@
             </div>
             <div class="form-group">
                 <label for="option1_4">Option D:</label>
-                <input type="text" id="option_D" name="Option_D" >
+                <input type="text" id="Option_D" name="Option_D" >
             </div>
             <div class="form-group">
                 <label for="correctAnswer">Correct Answer:</label>
