@@ -9,7 +9,7 @@
     if (quizId == null || questionNo == null) {
         // Redirect to an error page or display an error message
         response.sendRedirect("error.jsp");
-        return;
+       
     }
 
     // Get the modified question details from the request

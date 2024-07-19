@@ -1,3 +1,14 @@
+<%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*,QuizApp.*" %>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    
+    <%
+       
+        Integer StudentId = (Integer) session.getAttribute("StudentId");
+        String StudentName = (String) session.getAttribute("StudentName");
+        String StudentEmailId = (String) session.getAttribute("StudentEmailId");
+        %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +45,8 @@
 
 
 <body>
+   
+
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -54,14 +67,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="StudentHome.html" class="nav-item nav-link active">Dashboard</a>
+                    <a href="StudentHome.jsp" class="nav-item nav-link active">Dashboard</a>
                     
                     
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">View Quizzes</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Quizzes</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="AttemptQuiz.html" class="dropdown-item">Attempt Quiz</a>
-                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View/Attempt Quizzes</a>
                         </div>
                     </div>
                     <a href="about.html" class="nav-item nav-link">View Result</a>
@@ -75,13 +87,15 @@
                         </div>
                     </div>
 
-                    <a href="contact.html" class="nav-item nav-link">logout</a>
+                    <a href="contact.html" class="nav-item nav-link">Logout</a>
                 </div>
               
             </div>
         </nav>
         <!-- Navbar End -->
-
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
+        <br>
        <!-- Carousel Start -->
        <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">

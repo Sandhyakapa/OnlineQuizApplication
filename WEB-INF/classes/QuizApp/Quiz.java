@@ -24,7 +24,7 @@ public class Quiz {
         this.Created_time = Created_time;
         this.duration = duration;
         this.Total_Questions = Total_Questions;
-        this.Quiz_id = Created_by;
+        this.Created_by = Created_by;
 
     }
 

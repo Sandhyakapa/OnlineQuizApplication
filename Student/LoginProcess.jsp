@@ -1,7 +1,8 @@
-<%@ page import = "java.sql.*" %>
+<%@ page import = "java.sql.*, java.util.*" %>
    <%
    String Email = request.getParameter("Email");
    String Password = request.getParameter("PassWord");
+
 
 
    try{
@@ -17,7 +18,11 @@
     //if(Email.equals(rs.getString(2)) && Password.equals(rs.getString(5))){
     if(rs.next())
     {       
-            response.sendRedirect("StudentHome.html");
+        session.setAttribute("StudentId", rs.getInt(1));
+        session.setAttribute("StudentName",rs.getString(3));
+        session.setAttribute("StudentEmailId", rs.getString(2));
+            response.sendRedirect("StudentHome.jsp");
+
     }
     else{
         

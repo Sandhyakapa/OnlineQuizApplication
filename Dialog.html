@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialog Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        dialog {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            background-color: white;
+            text-align: center;
+        }
+        dialog h2 {
+            margin: 0 0 10px;
+            font-size: 24px;
+        }
+        dialog p {
+            font-size: 16px;
+            margin: 0 0 20px;
+            color: #555;
+        }
+        dialog button {
+            margin: 0 5px;
+        }
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <button id="showDialogBtn">Show Dialog</button>
+
+    <dialog id="myDialog">
+        <h2>Dialog Title</h2>
+        <p>This is a simple dialog box.</p>
+        <button id="closeDialogBtn">Close</button>
+    </dialog>
+
+    <script>
+        // Get the dialog and buttons
+        const dialog = document.getElementById('myDialog');
+        const showDialogBtn = document.getElementById('showDialogBtn');
+        const closeDialogBtn = document.getElementById('closeDialogBtn');
+
+        // Show the dialog when the "Show Dialog" button is clicked
+        showDialogBtn.addEventListener('click', () => {
+            dialog.showModal();
+        });
+
+        // Close the dialog when the "Close" button is clicked
+        closeDialogBtn.addEventListener('click', () => {
+            dialog.close();
+        });
+    </script>
+</body>
+</html>
