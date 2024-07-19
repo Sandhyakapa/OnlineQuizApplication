@@ -377,7 +377,7 @@
     style="background-color: white;font-weight: bold; text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 26px;color: rgb(36, 38, 39);">
     Questions </div>
     <div class="questions-container">
-        <form name ="AttendQuizForm" action="SubmitQuiz.jsp">
+        <form name ="AttendQuizForm" id="AttendQuizForm" action="SubmitQuiz.jsp">
             <input type ="hidden" value = "<%=quiz.Quiz_id%>" name = "quiz_id">
        
         <% for (int i = 0; i < questions.size(); i++) {
@@ -436,7 +436,7 @@
         <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 25px;">Your Quiz time is up!</h2>
         <img src="..\img\timeisup.jpg" width="270px" height="250px"> <br><br>
         <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: large;">Thank you for attending this quiz, <br>Now you can proceed to view your marks.</p>
-        <button id="btnCheckMarks">View Marks</button>
+        <button  id="btnCheckMarks">View Marks</button>
     </dialog>
 <!--END -- Copy Your Form HTML code here-->
 
@@ -468,11 +468,11 @@
         // Close the dialog when the "Close" button is clicked
         closeDialogBtn.addEventListener('click', () => {
             //navigate to view marks page.
-            window.location.href = 'ViewAllQuizzes.jsp';
+            window.location.href = 'SubmitQuiz.jsp';
         });
 
         window.onload = function () {
-            var duration = 100000;//<%= quiz.duration  %> ; // Convert duration from minutes to seconds
+            var duration = 4;//<%= quiz.duration  %> ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };
@@ -499,6 +499,10 @@
                 }
             }, 1000);
         }
+        document.getElementById("btnCheckMarks").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            document.getElementById("AttendQuizForm").submit(); // Trigger form submission
+        });
 
      </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

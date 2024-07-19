@@ -44,19 +44,44 @@ try{
         int selectedAnswer = mapStudentSelectedOptions.get(questionId);
 
         //Inserting User selected option into student_answers table
+       int StudentId = (Integer)session.getAttribute("StudentId");
 
-        
+try{
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
+     sql = "insert into student_answers(Quiz_id, Question_Id, StudentID, Selected_Option) values(?,?,?,?)";
+    PreparedStatement ps = conn.prepareStatement(sql);
+    ps.setInt(1,quiz_id);
+    ps.setInt(2,questionId);
+    ps.setInt(3,StudentId);
+    ps.setInt(4,selectedAnswer);
+
+    int res = ps.executeUpdate();
+
+    if(res>0){
+       // out.println("Record Insertd  successfully...");
+    }
+    else{
+       // out.println("insertion Failed...");
+    }
+
+   
+
+}
+catch(Exception e){
+    out.println(e);
+}
      }
 
 
     
-
+     response.sendRedirect("ViewQuizMarks.jsp?quiz_id="+quiz_id);
 
 } catch (Exception e) {
     e.printStackTrace();
     out.println("<p>SQL Error: " + e.getMessage() + "</p>");
 }
-       
+
     
     
 
