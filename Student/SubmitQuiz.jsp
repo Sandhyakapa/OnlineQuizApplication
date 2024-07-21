@@ -75,33 +75,34 @@ catch(Exception e){
 
 
     
-     response.sendRedirect("ViewQuizMarks.jsp?quiz_id="+quiz_id);
+     //response.sendRedirect("ViewQuizMarks.jsp?quiz_id="+quiz_id);
+
+     //code for fetching marks
+     try{
+   
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
+     
+        sql ="SELECT count(*) as student_marks FROM question INNER JOIN student_answers ON question.Quiz_id = student_answers.Quiz_id and question.Question_ID = student_answers.Question_ID where question.Quiz_id=? and question.Quiz_id = student_answers.Quiz_id and question.Correct_Answer = student_answers.Selected_Option";
+         quizStmt = con.prepareStatement(sql) ;
+        
+         //quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+        //out.println(quiz_id);
+        quizStmt.setInt(1, quiz_id);
+    //out.println(sql);
+         rs= quizStmt.executeQuery();
+       int marks= 0;
+        if (rs.next()) {
+         marks =rs.getInt(1); 
+        }
+        out.println("Your marks:"+marks);
+    }
+    catch(Exception e){
+        out.println(e);
+    }
 
 } catch (Exception e) {
     e.printStackTrace();
     out.println("<p>SQL Error: " + e.getMessage() + "</p>");
 }
-
-    
-    
-
-
-
-
-
-
-
-
-/*String str1 = request.getParameter("rdbQuestion34");
-if(str1 != null){
-    int q1 = Integer.parseInt(str1);
-    out.println("q1 = "+q1);
-}*/
-
-//int q2 = Integer.parseInt(request.getParameter("rdbQuestion35"));
-//int q3 = Integer.parseInt(request.getParameter("rdbQuestion36"));
-
-
-//out.println("q2 = "+q2);
-//out.println("q3 = "+q3);
 %>

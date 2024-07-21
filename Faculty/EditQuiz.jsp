@@ -265,14 +265,36 @@
                             <label for="duration"><b>Duration:</b></label>
                         </div>
                     </div>
+                   
+
+
                     <div class="col-sm-6">
                         <div class="form-floating">
                             <input type="number" class="form-control border-0" id="Total_Questions" name="Total_Questions" value="<%= quiz.Total_Questions %>" placeholder="Total Questions">
                             <label for="Total_Questions"><b>Total Questions:</b></label>
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary w-50 py-3">Update</button>
+                    <div class="col-sm-6">
+                        <div class="form-floating">
+                       
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                        <div style="text-align: right;"> <input type="submit" value="Update" class="btn"
+                            style="text-align: center;background-color: green;color: white; width: 150px;height: 50px;"> </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div style="text-align: left;" >
+                        <input type="button" value="Cancel" class="btn"
+                            style="text-align: center;background-color: #b96767;color: white; width: 150px;height: 50px;" onclick="window.location.href='ViewAllQuizzes.jsp';">
+                        <!-- <a href="ViewAllQuizzes.jsp" style="text-align: center;background-color: #b96767;color:white;width: 150px;height: 50px;" class="btn"
+                        >Cancel</a> -->
+                        </div>
+                   </div> 
+                    </div>
+                    
                     </div>
                 </div>
             </form>
@@ -306,6 +328,7 @@
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+       
     </div>
 
     <!-- JavaScript Libraries -->

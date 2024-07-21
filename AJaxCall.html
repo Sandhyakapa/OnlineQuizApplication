@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Example</title>
+    <script>
+        function makeAjaxCall() {
+            var xhr = new XMLHttpRequest();
+            var url = "yourJspPage.jsp"; // Replace with the actual JSP page URL
+
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("response").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <button onclick="makeAjaxCall()">Make AJAX Call</button>
+    <div id="response"></div>
+</body>
+</html>

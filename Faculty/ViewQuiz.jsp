@@ -220,6 +220,17 @@
             color: green;
             font-weight: bold;
         }
+        hr {
+            border: none; /* Remove default border */
+            border-top: 2px solid #000; /* Set line color and thickness */
+            margin: 20px 0; /* Add space above and below the line */
+        }
+        .text-style {
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            overflow: hidden; /* Hide scrollbars */
+            resize: none; /* Prevent manual resizing */
+           
+        }
     </style>
 </head>
 <body>
@@ -279,18 +290,18 @@
                 %>
                 <div class="question">
                     <p class="question-number">Question <%= i + 1 %>:</p>
-                    <p class="question-text"><%= question.question %></p>
-                    =====================================================
-                    <p class="option"><strong>A:</strong> <%= question.Option_A %> <p style="font-size: 30px;color: green;">&#10003;</p>
-                    <p class="option"><strong>B:</strong> <%= question.Option_B %></p><p></p>
-                    <p class="option"><strong>C:</strong> <%= question.Option_C %></p><p></p>
-                    <p class="option"><strong>D:</strong> <%= question.Option_D %></p><p></p>
-                    <p class="correct-answer" style="font-size: 16px;">Correct Answer: <%
+                    <hr>
+                    <p class="question-text" style="color: #170f2d;font-weight: bold;"><%= question.question %></p>
+                    <p class="option"><strong>A:</strong> <%= question.Option_A %> 
+                    <p class="option"><strong>B:</strong> <%= question.Option_B %></p>
+                    <p class="option"><strong>C:</strong> <%= question.Option_C %></p>
+                    <p class="option"><strong>D:</strong> <%= question.Option_D %></p>
+                    <input type="button" class="btn" style="border: 2px;background-color: #7ebcb3; color: #170f2d;" value="Correct Answer:   <%
                         
                       
                         out.println(Character.toString(answer));
                        
-                        %></p>
+                        %>">
                 </div>
             <% } %>
         </div>

@@ -2,7 +2,58 @@
 
 <%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="QuizApp.*" %><!DOCTYPE html>
+<%@ page import="QuizApp.*" %>
+
+<%
+
+// Get quiz ID from request
+    String quizIdParam = request.getParameter("quizId");
+    if (quizIdParam == null) {
+        response.sendRedirect("ViewQuiz.jsp");
+    }
+    int quizId = Integer.parseInt(quizIdParam);
+
+    int StudentId = (Integer) session.getAttribute("StudentId");
+    int status = 1; //this is the quiz attended status, 1 = attended, 0= not attended
+
+// Database connection details
+    String jdbcUrl = "jdbc:mysql://localhost:3306/onlinequizapp";
+    String jdbcUser = "root";
+    String jdbcPassword = "Sandhya@123"; 
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
+            // Fetch quiz details
+            String quizQuery = "insert into attended_quizzes (StudentID,Quiz_id, Status) values(?,?,?)";
+            PreparedStatement quizStmt = conn.prepareStatement(quizQuery);
+                quizStmt.setInt(1, StudentId);
+                quizStmt.setInt(2, quizId);
+                quizStmt.setInt(3,status);
+                int updated_Records = quizStmt.executeUpdate();
+                if(updated_Records <= 0){
+                    %>
+        <script>
+            // JavaScript to display an alert popup
+            alert("This Quiz has been attempted already, Please check other quizzes.");
+           document.location="ViewAllQuizzes.jsp";
+        </script>
+    <%
+                }
+               
+            }
+          catch (Exception e) {%>
+            <script>
+            alert("This Quiz has been attempted already, Please check other quizzes.");
+            document.location="ViewAllQuizzes.jsp";
+        </script>
+            //e.printStackTrace();
+           // out.println("<p>Error accessing the database: " + e.getMessage() + "</p>");
+           <% }
+%>
+
+
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -120,6 +171,7 @@
                         width: 100%;
                         border-collapse: collapse;
                         margin-top: 20px;
+                        color: rgb(9, 9, 33);
                     }
 
 
@@ -175,7 +227,31 @@
             border-radius: 50%;
             background: white;
         }
-                    
+
+        .beautiful-button {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 15px 32px; /* Add some padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Get it to line up properly */
+    font-size: 16px; /* Increase font size */
+    margin: 4px 2px; /* Add some margin */
+    cursor: pointer; /* Add a pointer cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+    transition-duration: 0.4s; /* Transition effect */
+}
+
+ /* Styles to visually and functionally disable the div */
+ .disabled {
+            pointer-events: none; /* Disable all pointer events */
+            opacity: 0.5; /* Make the div appear disabled */
+        }
+
+        .disabled * {
+            pointer-events: none;
+        }     
                 </style>
                 <meta charset="utf-8">
                 <title>Online Quiz Application </title>
@@ -248,7 +324,7 @@
                                     </div>
                                 </div>
 
-                                <a href="contact.html" class="nav-item nav-link">Logout</a>
+                                <a href="Logout.jsp" class="nav-item nav-link">Logout</a>
                             </div>
 
                         </div>
@@ -260,17 +336,9 @@
 
     <!-- START -- Copy Your Form HTML code here-->
     <%
-    // Database connection details
-    String jdbcUrl = "jdbc:mysql://localhost:3306/onlinequizapp";
-    String jdbcUser = "root";
-    String jdbcPassword = "Sandhya@123"; // Change this to your actual database password
+    
 
-    // Get quiz ID from request
-    String quizIdParam = request.getParameter("quizId");
-    if (quizIdParam == null) {
-        response.sendRedirect("ViewQuiz.jsp");
-    }
-    int quizId = Integer.parseInt(quizIdParam);
+    
 
     Quiz quiz = null;
     List<Question> questions = new ArrayList<>();
@@ -354,17 +422,22 @@
          <div id="QuizSession">
          <table>
             <tr>
-                <td style="text-align: left;">Subject : <%=quiz.Subject%></td>
-                <td style="text-align: right;">Duration : <%=quiz.duration%> Minutes </td>
+                <td style="text-align: left;">Quiz ID : <%=quiz.Quiz_id%></td>
+                <td style="text-align: right;">Total Questions : <%=quiz.Total_Questions%></td>
                 
             </tr>
             <tr>
-                <td style="text-align: left;">Total Questions : <%=quiz.Total_Questions%></td>
-                <td style="text-align: right;">Attempted Questions :<span id="attemptedQuestions" >0 </span></td>
+                <td style="text-align: left;">Subject : <%=quiz.Subject%></td>
+                <td style="text-align: right;">Attempted Questions : <span id="attemptedQuestions" >0 </span></td>
                 
             </tr>
             <tr>
                 <td style="text-align: left;">Total Marks : <%=quiz.Total_Questions%></td>
+                <td style="text-align: right;">Duration : <%=quiz.duration%> Minutes </td>
+                
+            </tr>
+            <tr>
+                <td style="text-align: left;"></td>
                 <td style="text-align: right;">Remaining Time : <span class="timer" id="timer" style="color: red;" >0:0 Minutes</span></td>
                
             </tr>
@@ -376,8 +449,8 @@
     <div 
     style="background-color: white;font-weight: bold; text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 26px;color: rgb(36, 38, 39);">
     Questions </div>
-    <div class="questions-container">
-        <form name ="AttendQuizForm" id="AttendQuizForm" action="SubmitQuiz.jsp">
+    <div class="questions-container"  id="divQuestions">
+        <form name ="AttendQuizForm" id="AttendQuizForm" onsubmit="return disableDiv('divQuestions')" action="SubmitQuiz.jsp">
             <input type ="hidden" value = "<%=quiz.Quiz_id%>" name = "quiz_id">
        
         <% for (int i = 0; i < questions.size(); i++) {
@@ -386,7 +459,7 @@
             char answer = (char) answerCode;
              
             %>
-            <div class="question">
+            <div  class="question">
                 <p class="question-number">Question:</p>
                 <p class="question-text" name=""><%= question.question %></p>
                
@@ -424,7 +497,8 @@
         <% } %>
 
 
-        <input type = "submit" value = "Submmit Quiz" >
+        <input type = "submit" value = "Submit Quiz" class="beautiful-button">
+        <!-- <input type="button" value="disable form" onclick="disableDiv('divQuestions')"> -->
        </form>
     </div>
 </div>
@@ -433,10 +507,15 @@
        
   
     <dialog id="myDialog">
-        <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 25px;">Your Quiz time is up!</h2>
+        <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 25px;">
+            Your Quiz time is up!</h2>
         <img src="..\img\timeisup.jpg" width="270px" height="250px"> <br><br>
-        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: large;">Thank you for attending this quiz, <br>Now you can proceed to view your marks.</p>
-        <button  id="btnCheckMarks">View Marks</button>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: large;">
+            Thank you for attending this quiz, <br>Now you can proceed to view your marks.</p>
+            <br>
+
+            We are calculating your marks, please wait ...
+        <!-- <button  id="btnCheckMarks">View Marks</button> -->
     </dialog>
 <!--END -- Copy Your Form HTML code here-->
 
@@ -461,18 +540,48 @@
 // Get the dialog and buttons
 
         
-        const closeDialogBtn = document.getElementById('btnCheckMarks');
+        // const closeDialogBtn = document.getElementById('btnCheckMarks');
 
         
 
-        // Close the dialog when the "Close" button is clicked
-        closeDialogBtn.addEventListener('click', () => {
-            //navigate to view marks page.
-            window.location.href = 'SubmitQuiz.jsp';
-        });
+        // // Close the dialog when the "Close" button is clicked
+        // closeDialogBtn.addEventListener('click', () => {
+        //     //navigate to view marks page.
+        //     window.location.href = 'SubmitQuiz.jsp';
+        // });
+        var radioButtonsSet = new Set();
+    
 
+        document.addEventListener('DOMContentLoaded', (event) => {
+    let attemptedCount = 0;
+    const attemptedCountElement = document.getElementById('attemptedQuestions');
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+
+    radioButtons.forEach((radioButton) => {
+        radioButton.addEventListener('change', (event) => {
+            const questionName = event.target.name;
+            radioButtonsSet.add(questionName);
+            attemptedCountElement.textContent = radioButtonsSet.size;
+            //const selectedRadioButton = document.querySelector(`input[name="${questionName}"]:checked`);
+          //const selectedRadioButtons =   document.getElementsByName(questionName);
+
+        //    console.log(selectedRadioButton);
+            // if (selectedRadioButton) {
+            //     // Check if this question has been attempted before
+            //     if (!selectedRadioButton.dataset.attempted) {
+            //         // Mark this question as attempted
+            //         selectedRadioButton.dataset.attempted = "true";
+            //         // Increment the attempted count
+            //         attemptedCount++;
+            //         // Update the displayed count
+            //         attemptedCountElement.textContent = attemptedCount;
+            //     }
+            // }
+        });
+    });
+});
         window.onload = function () {
-            var duration = 4;//<%= quiz.duration  %> ; // Convert duration from minutes to seconds
+            var duration = 300000;//<%= quiz.duration  %> ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };
@@ -492,17 +601,30 @@
                     timer = 0;
                     // You can add a function here to handle what happens when the timer ends.
                     clearInterval(intervalId); // Stop the timer when it reaches 0
-                   
+                    //disable questions form
+                    disableDiv('divQuestions');
                     const dialog = document.getElementById('myDialog');
                     dialog.showModal();
                    // window.location.href = 'ViewAllQuizzes.jsp';
                 }
             }, 1000);
         }
-        document.getElementById("btnCheckMarks").addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent default anchor behavior
-            document.getElementById("AttendQuizForm").submit(); // Trigger form submission
-        });
+        // document.getElementById("btnCheckMarks").addEventListener("click", function(event) {
+        //     event.preventDefault(); // Prevent default anchor behavior
+        //     document.getElementById("AttendQuizForm").submit(); // Trigger form submission
+        // });
+
+        function disableDiv(divName) {
+
+            // var div = document.getElementById(divName);
+            // div.classList.add('disabled');
+            // var elements = div.querySelectorAll('input, button, select, textarea,label');
+            // elements.forEach(function(element) {
+            //     element.disabled = true;
+            // });
+            return true;
+        }
+       
 
      </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

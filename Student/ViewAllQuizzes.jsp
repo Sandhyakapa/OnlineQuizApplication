@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <a href="contact.html" class="nav-item nav-link">Logout</a>
+                <a href="Logout.jsp" class="nav-item nav-link">Logout</a>
             </div>
           
         </div>
@@ -106,8 +106,9 @@
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
                 // Fetch quizzes for the faculty
-                String quizQuery = "SELECT * FROM quiz";
+                String quizQuery = "select * from quiz where Quiz_id not  in (select Quiz_id from attended_quizzes where StudentID = ?)";
                PreparedStatement quizStmt = conn.prepareStatement(quizQuery);
+               quizStmt.setInt(1,StudentId);
                     ResultSet quizRs = quizStmt.executeQuery();
                     while (quizRs.next()) {
                         Quiz quiz = new Quiz();

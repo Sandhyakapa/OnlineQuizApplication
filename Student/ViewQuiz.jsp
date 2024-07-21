@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
 
-                                <a href="contact.html" class="nav-item nav-link">Logout</a>
+                                <a href="Logout.jsp" class="nav-item nav-link">Logout</a>
                             </div>
 
                         </div>
@@ -261,17 +261,22 @@
                                                 <p
                                                     style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
                                                     <b style="color: rgb(221, 94, 94);">Note: </b>
-                                                    <span style="color: gray;">This Quiz will open only once and once
-                                                        attempted you cannot reattempt. Please make sure there will be
-                                                        no interuptions before attempting the quiz.</span>
+                                                    <span style="color: gray;">
+                                                        This Quiz will open only once and once
+                                                        attempted you cannot reattempt.<br> 
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please make sure to not Refresh/press F5 during the quiz.
+                                                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please make sure there will be
+                                                       no interuptions before attempting the quiz.</span>
                                                 </p>
 
                                             </div>
 
-                                            <div style="text-align: center;"> <input type="submit" value="Proceed" class="btn"
-                                                    style="background-color: green;color: white;"> &nbsp;
-                                                &nbsp; &nbsp;<a href="ViewAllQuizzes.jsp" class="btn"
-                                                    style="background-color: #b96767;color:white;">Cancel</a></div>
+                                            <div style="text-align: center;"> 
+                                                
+                                                <input type="submit" value="Proceed" class="btn"
+                                                    style="background-color: green;color: white;width: 150px;height: 50px;"> &nbsp;
+                                                &nbsp; &nbsp;<input type="button" value="Cancel"  class="btn"
+                                                    style="background-color: #b96767;color:white;width: 150px;height: 50px;" onclick="window.location.href='ViewAllQuizzes.jsp';"></div>
 
                                         </div>
                                         <input type="hidden" name="quizId" value="<%= quiz.Quiz_id %>">

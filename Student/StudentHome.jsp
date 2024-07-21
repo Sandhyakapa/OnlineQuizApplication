@@ -87,7 +87,7 @@
                         </div>
                     </div>
 
-                    <a href="contact.html" class="nav-item nav-link">Logout</a>
+                    <a href="Logout.jsp" class="nav-item nav-link">Logout</a>
                 </div>
               
             </div>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disable Div with Form Elements Inside Labels</title>
+    <style>
+        /* Styles to visually and functionally disable the div */
+        .disabled {
+            pointer-events: none; /* Disable all pointer events */
+            opacity: 0.5; /* Make the div appear disabled */
+        }
+    </style>
+</head>
+<body>
+    <div id="myDiv">
+        <p>This is a div that can be disabled.</p>
+        <input type="text" value="Text input"><br>
+        <label><input type="radio" name="radio" value="1"> Option 1</label><br>
+        <label><input type="radio" name="radio" value="2"> Option 2</label><br>
+        <button onclick="alert('Button inside div clicked!')">Click me</button>
+    </div>
+
+    <button onclick="disableDiv()">Disable Div</button>
+    <button onclick="enableDiv()">Enable Div</button>
+
+    <script>
+        function disableDiv() {
+            var div = document.getElementById('myDiv');
+            div.classList.add('disabled');
+
+            // Disable all form elements inside the div, including those inside labels
+            var elements = div.querySelectorAll('input, button, select, textarea');
+            elements.forEach(function(element) {
+                element.disabled = true;
+            });
+        }
+
+        function enableDiv() {
+            var div = document.getElementById('myDiv');
+            div.classList.remove('disabled');
+
+            // Enable all form elements inside the div, including those inside labels
+            var elements = div.querySelectorAll('input, button, select, textarea');
+            elements.forEach(function(element) {
+                element.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
