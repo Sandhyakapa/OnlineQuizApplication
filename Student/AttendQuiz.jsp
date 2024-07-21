@@ -30,7 +30,7 @@
                 quizStmt.setInt(1, StudentId);
                 quizStmt.setInt(2, quizId);
                 quizStmt.setInt(3,status);
-                int updated_Records = quizStmt.executeUpdate();
+                int updated_Records =  quizStmt.executeUpdate();
                 if(updated_Records <= 0){
                     %>
         <script>
@@ -252,6 +252,20 @@
         .disabled * {
             pointer-events: none;
         }     
+
+        .flashing {
+            animation: flash 3s;
+        }
+
+        
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+      
                 </style>
                 <meta charset="utf-8">
                 <title>Online Quiz Application </title>
@@ -284,6 +298,16 @@
 
                 <!-- Template Stylesheet -->
                 <link href="../css/style.css" rel="stylesheet">
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/wow/wow.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
             </head>
 
             <body>
@@ -411,13 +435,18 @@
     <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= session.getAttribute("StudentName") %></div>
     <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= session.getAttribute("StudentName") %></div>
     
+    
    
-    <div class="container" style="width: 70%;background-color: rgb(231, 238, 240);">
+    <div class="container" style="width: 70%;background-color: rgb(197, 229, 238);" id="quizSession">
         <div 
-        style="background-color: white;font-weight: bold; text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 26px;color: orange;">
+        style="background-color: white;font-weight: bold; text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 28px;color: rgb(11, 9, 24);">
         Quiz Session</div>
         
-
+        <div class="container flashing"  style="width: 40%;background-color: #bc4242;display: none;" id="divMarks" >
+            <div id="divMarksInternal" style="color: white;font-size: 20px;text-align: center;">
+               Your Marks: 0/0
+            </div>
+            </div>
         <!-- design for showing Quiz session  -->
          <div id="QuizSession">
          <table>
@@ -443,8 +472,12 @@
             </tr>
          </table>
         </div>
+        
 </div>
+
+
 <br>
+
 <div class="container" style="width: 70%;background-color: rgb(234, 237, 238);">
     <div 
     style="background-color: white;font-weight: bold; text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 26px;color: rgb(36, 38, 39);">
@@ -497,7 +530,9 @@
         <% } %>
 
 
-        <input type = "submit" value = "Submit Quiz" class="beautiful-button">
+        <input type = "button" value = "Submit Quiz" class="beautiful-button" id="btnSubmitQuiz">
+        <input type = "button" value = "Cancel Quiz" class="beautiful-button" style="background-color: red;"
+         id="btnCancelQuiz" onclick="submitQuizFromCancel()">
         <!-- <input type="button" value="disable form" onclick="disableDiv('divQuestions')"> -->
        </form>
     </div>
@@ -549,7 +584,10 @@
         //     //navigate to view marks page.
         //     window.location.href = 'SubmitQuiz.jsp';
         // });
-        var radioButtonsSet = new Set();
+        const mapStudentAnswers = new Map();
+        var globalTimer; 
+        var isTimerElapsed = false;
+        
     
 
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -560,8 +598,10 @@
     radioButtons.forEach((radioButton) => {
         radioButton.addEventListener('change', (event) => {
             const questionName = event.target.name;
-            radioButtonsSet.add(questionName);
-            attemptedCountElement.textContent = radioButtonsSet.size;
+            const selectedValue = $('input[name='+questionName+']:checked').val();
+            mapStudentAnswers.set(questionName, selectedValue);
+           
+            attemptedCountElement.textContent = mapStudentAnswers.size;
             //const selectedRadioButton = document.querySelector(`input[name="${questionName}"]:checked`);
           //const selectedRadioButtons =   document.getElementsByName(questionName);
 
@@ -581,14 +621,14 @@
     });
 });
         window.onload = function () {
-            var duration = 300000;//<%= quiz.duration  %> ; // Convert duration from minutes to seconds
+            var duration = 3;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };
         //timer code
         function startTimer(duration, display) {
             var timer = duration, minutes, seconds;
-           var intervalId = setInterval(function () {
+            globalTimer = setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
 
@@ -598,12 +638,14 @@
                 display.textContent = minutes + ":" + seconds+" Minutes";
 
                 if (--timer < 0) {
+                    isTimerElapsed = true;
                     timer = 0;
                     // You can add a function here to handle what happens when the timer ends.
-                    clearInterval(intervalId); // Stop the timer when it reaches 0
+                    clearInterval(globalTimer); // Stop the timer when it reaches 0
                     //disable questions form
-                    disableDiv('divQuestions');
+                   
                     const dialog = document.getElementById('myDialog');
+                    loadMarks();
                     dialog.showModal();
                    // window.location.href = 'ViewAllQuizzes.jsp';
                 }
@@ -616,26 +658,79 @@
 
         function disableDiv(divName) {
 
-            // var div = document.getElementById(divName);
-            // div.classList.add('disabled');
-            // var elements = div.querySelectorAll('input, button, select, textarea,label');
-            // elements.forEach(function(element) {
-            //     element.disabled = true;
-            // });
+            var div = document.getElementById(divName);
+            div.classList.add('disabled');
+            var elements = div.querySelectorAll('input, button, select, textarea,label');
+            elements.forEach(function(element) {
+                element.disabled = true;
+            });
             return true;
         }
        
+        $('#btnSubmitQuiz').click(function() {
 
+            if(isTimerElapsed || confirm('Are you sure you want to Submit this Quiz?'))
+          {
+            clearInterval(globalTimer); 
+            const mapObject = Object.fromEntries(mapStudentAnswers);
+            var quizid = <%=quizId%>;
+
+            const combinedObject = {
+                SelectedAnswers :mapObject,
+                QuizID: quizid
+            };
+
+            $.ajax({
+                url: 'SubmitQuiz.jsp', // URL of the resource to fetch
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data:  JSON.stringify(combinedObject),
+                success: function(marks) {
+                    disableDiv('divQuestions')
+                    $('#divMarks').toggle();
+                    $('#divMarksInternal').text(marks);
+                    scrollToDiv('quizSession');                   
+                   
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('AJAX error:', textStatus, errorThrown);
+                }
+            });
+          }
+
+            
+        });
+
+
+        function scrollToDiv(divElement) {
+            document.getElementById(divElement).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function loadMarks()
+        {
+            var intervalMarksPage =setInterval(function () {
+                
+                    clearInterval(intervalMarksPage); // Stop the timer when it reaches 0
+                    const dialog = document.getElementById('myDialog');
+                    dialog.close();
+                    $('#btnSubmitQuiz').click();
+                    
+                }
+            , 2000);
+        }
+
+        function submitQuizFromCancel()
+        {
+            if(confirm('Are you sure you want to exit from this Quiz?'))
+            {
+                $('#btnSubmitQuiz').click();
+            }
+        }
      </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/wow/wow.min.js"></script>
-    <script src="../lib/easing/easing.min.js"></script>
-    <script src="../lib/waypoints/waypoints.min.js"></script>
-    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="../js/main.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    
 </body>
 
 </html>

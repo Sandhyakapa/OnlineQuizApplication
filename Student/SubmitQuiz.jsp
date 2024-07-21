@@ -1,17 +1,68 @@
-<%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*" %>
+<%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*,java.io.*" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="org.json.JSONObject" %>
 <%@ page import="QuizApp.*" %>
+<%@ page import="java.lang.reflect.Type" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="com.google.gson.reflect.TypeToken" %>
 <%
 try{
-   
+  
+    StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+//out.println(sb.toString());
+        String jsonString = sb.toString();
+        JSONObject jsonObject = new JSONObject(jsonString);
+       //out.println(jsonObject);
+
+       Gson gson = new Gson();
+       Type mapType = new TypeToken<Map<String, Object>>(){}.getType();
+        Map<String, Object> dataMap = gson.fromJson(jsonString, mapType);
+
+
+
+        //Read the user given data from AJAX call
+       // out.println("Quiz-ID:"+ dataMap.get("QuizID"));
+        Map<String,String> map = (Map<String,String>) dataMap.get("SelectedAnswers");
+       
+    
+        
+
+       // out.println("dataMap :"+ map.entrySet());
+
+       
+           //for (Map.Entry<String, String> entry : map.entrySet()) {
+                   // out.println("Key = "+entry.getKey());
+                  //  out.println("Value = "+ entry.getValue());
+            //        }
+
+       // Map<String, Object> map = jsonToMap(jsonObject.get("SelectedAnswers"));
+            // Print the Map
+       //     for (Map.Entry<String, Object> entry : map.entrySet()) {
+       //         System.out.println("Entry = "+entry.getKey() + ": " + entry.getValue());
+        //    }
     Class.forName("com.mysql.cj.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
  
     String sql = "select Question_ID from question where Quiz_id=?";
     PreparedStatement quizStmt = con.prepareStatement(sql) ;
+
+    String numberStr  =  String.valueOf(dataMap.get("QuizID"));
+    if (numberStr.endsWith(".0")) {
+        numberStr = numberStr.substring(0, numberStr.length() - 2);
+    }
+    //out.println("quiz_id1:"+numberStr);
+
+    int quiz_id = Integer.parseInt(numberStr);
     
-    int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-    //out.println(quiz_id);
+    //out.println("quiz_id2:"+quiz_id);
+
     quizStmt.setInt(1, quiz_id);
 
     ResultSet rs= quizStmt.executeQuery();
@@ -28,17 +79,18 @@ try{
 
     for(int questionId: listQuestionIds){
           
-        String strSelectedOption = request.getParameter("rdbQuestion"+ questionId);
-        if(strSelectedOption != null){
-            int selectedOption = Integer.parseInt(strSelectedOption);
+        String strSelectedOption = "rdbQuestion"+ questionId;
+        //out.println("strSelectedOption:"+strSelectedOption);
+        if(map.containsKey(strSelectedOption)){
+            int selectedOption = Integer.parseInt(map.get(strSelectedOption));
             mapStudentSelectedOptions.put(questionId, selectedOption);
         }
 
      }
 
      //for(int questionId : mapStudentSelectedOptions.keySet()){
-     //   out.println(questionId+":"+mapStudentSelectedOptions.get(questionId));
-     //}
+    //    out.println(questionId+":"+mapStudentSelectedOptions.get(questionId));
+    // }
 
      for(int questionId : mapStudentSelectedOptions.keySet()){
         int selectedAnswer = mapStudentSelectedOptions.get(questionId);
@@ -69,7 +121,7 @@ try{
 
 }
 catch(Exception e){
-    out.println(e);
+    e.printStackTrace();
 }
      }
 
@@ -95,14 +147,24 @@ catch(Exception e){
         if (rs.next()) {
          marks =rs.getInt(1); 
         }
-        out.println("Your marks:"+marks);
+        out.println("Your Marks : "+marks+"/"+listQuestionIds.size());
+       // return marks;
     }
     catch(Exception e){
+        e.printStackTrace();
         out.println(e);
     }
 
 } catch (Exception e) {
-    e.printStackTrace();
-    out.println("<p>SQL Error: " + e.getMessage() + "</p>");
+    // Capture the stack trace in a string
+    StringWriter sw = new StringWriter();
+    PrintWriter pw = new PrintWriter(sw);
+    e.printStackTrace(pw);
+    String stackTraceString = sw.toString();
+
+    // Output the stack trace string
+    out.println("<p>SQL Error: " +stackTraceString + "</p>");
 }
+
+
 %>
