@@ -5,6 +5,12 @@
 <%@ page import="QuizApp.*" %>
 
 <%
+        Integer StudentId = (Integer) session.getAttribute("StudentId");
+        String StudentEmailId = (String) session.getAttribute("StudentEmailId");
+        String StudentName = (String) session.getAttribute("StudentName");
+        %>
+
+<%
 
 // Get quiz ID from request
     String quizIdParam = request.getParameter("quizId");
@@ -13,7 +19,7 @@
     }
     int quizId = Integer.parseInt(quizIdParam);
 
-    int StudentId = (Integer) session.getAttribute("StudentId");
+    //int StudentId = (Integer) session.getAttribute("StudentId");
     int status = 1; //this is the quiz attended status, 1 = attended, 0= not attended
 
 // Database connection details
@@ -342,8 +348,8 @@
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                                     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                                        <a href="facility.html" class="dropdown-item">View Profile</a>
-                                        <a href="team.html" class="dropdown-item">Edit Profile</a>
+                                        <a href="Profile.jsp" class="dropdown-item">View Profile</a>
+                                        <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
                                         <a href="call-to-action.html" class="dropdown-item">Update Profile</a>
                                     </div>
                                 </div>
@@ -356,6 +362,9 @@
 
    
         <!-- Navbar End -->
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
+        <br>
 
 
     <!-- START -- Copy Your Form HTML code here-->
@@ -429,14 +438,7 @@
         out.println("<p>MySQL JDBC Driver not found: " + e.getMessage() + "</p>");
     }
 %>
-
-
- 
-    <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= session.getAttribute("StudentName") %></div>
-    <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= session.getAttribute("StudentName") %></div>
-    
-    
-   
+  
     <div class="container" style="width: 70%;background-color: rgb(197, 229, 238);" id="quizSession">
         <div 
         style="background-color: white;font-weight: bold; text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 28px;color: rgb(11, 9, 24);">
@@ -621,7 +623,7 @@
     });
 });
         window.onload = function () {
-            var duration = 3;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
+            var duration = 7;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };

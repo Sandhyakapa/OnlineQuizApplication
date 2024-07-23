@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Online Quiz Application - Preschool Website Template</title>
+    <title>Online Quiz Application </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -67,9 +67,9 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                        <a href="facility.html" class="dropdown-item">View Profile</a>
-                        <a href="team.html" class="dropdown-item">Edit Profile</a>
-                        <a href="call-to-action.html" class="dropdown-item">Update Profile</a>
+                        <a href="Profile.jsp" class="dropdown-item">View Profile</a>
+                        <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
+                        <a href="call-to-action.html" class="dropdown-item">Update Password</a>
                     </div>
                 </div>
 
@@ -173,6 +173,7 @@
         
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
+        <br>
         
     
         <h3 style="padding-left: 30px;text-align: center;padding-bottom: 30px;color: #5f94da;">All Quizzes</h3>

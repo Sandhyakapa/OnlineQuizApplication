@@ -21,7 +21,7 @@
             session.setAttribute("facultyId", facultyId);
             session.setAttribute("facultyEmail", Email);
             session.setAttribute("facultyName", facultyName);
-            response.sendRedirect("FacultyHome.html");
+            response.sendRedirect("FacultyHome.jsp");
         } 
     else{
         

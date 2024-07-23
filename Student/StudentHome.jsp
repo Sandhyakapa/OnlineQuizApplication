@@ -81,8 +81,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="facility.html" class="dropdown-item">View Profile</a>
-                            <a href="team.html" class="dropdown-item">Edit Profile</a>
+                            <a href="Profile.jsp" class="dropdown-item">View Profile</a>
+                            <a href="EditProfile copy.jsp" class="dropdown-item">Edit Profile</a>
                             <a href="call-to-action.html" class="dropdown-item">Update Profile</a>
                         </div>
                     </div>

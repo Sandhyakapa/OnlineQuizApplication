@@ -1,8 +1,12 @@
-
-
 <%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="QuizApp.*" %>
+
+<%
+Integer facultyId = (Integer) session.getAttribute("facultyId");
+String facultyEmail = (String) session.getAttribute("facultyEmail");
+String facultyName1 = (String) session.getAttribute("facultyName");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,30 +55,45 @@
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
             <a href="index.html" class="navbar-brand">
-                <h1 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>Online Quiz Application</h1>
+                <h1 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>Online Quiz App</h1>
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="../index.html" class="nav-item nav-link">Home</a>
-                    <a href="../about.html" class="nav-item nav-link">About Us</a>
-        
+                    <a href="FacultyHome.jsp" class="nav-item nav-link active">Dashboard</a>
                     
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quiz</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="CreateQuizFrontend.jsp" class="dropdown-item">Create Quiz</a>
+                            <a href="EditQuiz.html" class="dropdown-item">Edit Quiz</a>
+                            <a href="DeleteQuiz.html" class="dropdown-item">Delete Quiz</a>
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-item nav-link">View Result</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="facility.html" class="dropdown-item">View Profile</a>
+                            <a href="team.html" class="dropdown-item">Edit Profile</a>
+                            <a href="call-to-action.html" class="dropdown-item">Update Profile</a>
+                        </div>
+                    </div>
+
+                    <a href="Logout.jsp" class="nav-item nav-link">logout</a>
                 </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
-                <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                <a href="Student/Login.html" class="dropdown-item">As Student</a>
-                <a href="" class="dropdown-item">As Faculty</a>
-            </div>
-            </div>
-               
+              
             </div>
         </nav>
         <!-- Navbar End -->
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= facultyName1 %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= facultyEmail %></div>
+        <br>
 
 
     <!-- START -- Copy Your Form HTML code here-->

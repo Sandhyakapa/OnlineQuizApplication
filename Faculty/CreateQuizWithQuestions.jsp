@@ -1,8 +1,11 @@
-<%@ page import="java.util.*" %>
+<%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*,QuizApp.*" %>
+        <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+        <%
 
-<% 
-
-
+        Integer facultyId = (Integer) session.getAttribute("facultyId");
+        String facultyEmail = (String) session.getAttribute("facultyEmail");
+        String facultyName = (String) session.getAttribute("facultyName");
+        %> 
 %>
 
 <!DOCTYPE html>
@@ -10,7 +13,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Online Quiz Application - Preschool Website Template</title>
+    <title>Online Quiz Application </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -52,30 +55,45 @@
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
             <a href="index.html" class="navbar-brand">
-                <h1 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>Online Quiz Application</h1>
+                <h1 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>Online Quiz App</h1>
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="../index.html" class="nav-item nav-link">Home</a>
-                    <a href="../about.html" class="nav-item nav-link">About Us</a>
-        
+                    <a href="FacultyHome.jsp" class="nav-item nav-link active">Dashboard</a>
                     
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quiz</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="CreateQuizFrontend.jsp" class="dropdown-item">Create Quiz</a>
+                            <!-- <a href="EditQuiz.html" class="dropdown-item">Edit Quiz</a>
+                            <a href="DeleteQuiz.html" class="dropdown-item">Delete Quiz</a> -->
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-item nav-link">View Result</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="Profile.jsp" class="dropdown-item">View Profile</a>
+                            <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
+                            <a href="call-to-action.html" class="dropdown-item">Update Profile</a>
+                        </div>
+                    </div>
+
+                    <a href="Logout.jsp" class="nav-item nav-link">logout</a>
                 </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
-                <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                <a href="Student/Login.html" class="dropdown-item">As Student</a>
-                <a href="" class="dropdown-item">As Faculty</a>
-            </div>
-            </div>
-               
+              
             </div>
         </nav>
         <!-- Navbar End -->
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= facultyName %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= facultyEmail %></div>
+        <br>
 
 
     <!-- START -- Copy Your Form HTML code here-->
@@ -173,7 +191,7 @@
             <!--<input type="submit" value="Create Quiz">-->
             <div class="col-sm-6">
                 <button class="btn btn-primary w-50 py-3" type="submit"  style="background-color:rgb(69, 207, 96) ;">Next</button>
-                <a class="btn btn-primary w-49 py-3"  style="width: 80px; float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.html">Exit</a>
+                <a class="btn btn-primary w-49 py-3"  style="width: 80px; float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.jsp">Exit</a>
             </div>
                 <div class="col-sm-6">
                    

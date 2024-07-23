@@ -1,6 +1,12 @@
 <%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*" %>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         <%@ page import="QuizApp.*" %>
+
+        <%
+        Integer StudentId = (Integer) session.getAttribute("StudentId");
+        String StudentEmailId = (String) session.getAttribute("StudentEmailId");
+        String StudentName = (String) session.getAttribute("StudentName");
+        %>
             <!DOCTYPE html>
             <html lang="en">
 
@@ -142,9 +148,9 @@
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                                     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                                        <a href="facility.html" class="dropdown-item">View Profile</a>
-                                        <a href="team.html" class="dropdown-item">Edit Profile</a>
-                                        <a href="call-to-action.html" class="dropdown-item">Update Profile</a>
+                                        <a href="Profile.jsp" class="dropdown-item">View Profile</a>
+                                        <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
+                                        <a href="call-to-action.html" class="dropdown-item">Update password</a>
                                     </div>
                                 </div>
 
@@ -154,6 +160,10 @@
                         </div>
                     </nav>
                     <!-- Navbar End -->
+
+                    <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
+                    <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
+                    <br>
 
 
                     <!-- START -- Copy Your Form HTML code here-->
@@ -201,14 +211,14 @@
                            
 
                           
-                                <div
+                                <!-- <div
                                     style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">
                                     Welcome, <%= session.getAttribute("StudentName") %>
-                                </div>
-                                <div
+                                </div> -->
+                                <!-- <div
                                     style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">
-                                    <%= session.getAttribute("StudentName") %>
-                                </div>
+                                    <%= session.getAttribute("StudentStudentEmailId") %>
+                                </div> -->
                                 <div class="container" style="width: 60%;background-color: rgb(161, 206, 225);">
                                     <h2>Quiz Details</h2>
 
