@@ -62,7 +62,7 @@
                         <a href="ViewAllQuizzes.jsp" class="dropdown-item">View/Attempt Quizzes</a>
                     </div>
                 </div>
-                <a href="about.html" class="nav-item nav-link">View Result</a>
+                <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a>
 
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
@@ -85,53 +85,85 @@
 
 
     <%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*,QuizApp.*" %>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
-    <%
-        String jdbcUrl = "jdbc:mysql://localhost:3306/onlinequizapp";
-        String jdbcUser = "root";
-        String jdbcPassword = "Sandhya@123"; // Change this to your actual database password
-    
-        Integer StudentId = (Integer) session.getAttribute("StudentId");
-        String StudentEmailId = (String) session.getAttribute("StudentEmailId");
-        String StudentName = (String) session.getAttribute("StudentName");
-        int recordsCount =0;
-        if (StudentId == null) {
-            response.sendRedirect("LoginProcess.jsp");
-            
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+    String jdbcUrl = "jdbc:mysql://localhost:3306/onlinequizapp";
+    String jdbcUser = "root";
+    String jdbcPassword = "Sandhya@123"; // Change this to your actual database password
+
+    Integer StudentId = (Integer) session.getAttribute("StudentId");
+    String StudentEmailId = (String) session.getAttribute("StudentEmailId");
+    String StudentName = (String) session.getAttribute("StudentName");
+    int recordsCount = 0;
+    if (StudentId == null) {
+        response.sendRedirect("LoginProcess.jsp");
+    }
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
+
+        String quizQuery = "SELECT quiz.Quiz_id, quiz.Subject, quiz.Start_date, quiz.end_date, quiz.Duration, quiz.Total_Questions, attended_quizzes.marks FROM quiz JOIN attended_quizzes  ON quiz.Quiz_id = attended_quizzes.Quiz_id WHERE attended_quizzes.StudentID = ?";
+        
+         PreparedStatement quizStmt = conn.prepareStatement(quizQuery);
+        quizStmt.setInt(1, StudentId);
+
+        ResultSet quizRs = quizStmt.executeQuery();
+%>
+        <div style="text-align: right; padding-right: 30px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold; color: brown;">Welcome, <%= StudentName %></div>
+        <div style="text-align: right; padding-right: 30px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold; color: brown;"><%= StudentEmailId %></div>
+        <br>
+        
+        <h3 style="padding-left: 30px; text-align: center; padding-bottom: 30px; color: #5f94da;">View Results</h3>
+        <table>
+            <tr>
+                <th>S.No</th>
+                <th>Quiz ID</th>
+                <th>Subject</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Duration (minutes)</th>
+                <th>Total Questions</th>
+                <th>Marks</th>
+            </tr>
+<%
+        while (quizRs.next()) {
+            recordsCount++;
+            int quizId = quizRs.getInt("Quiz_id");
+            String subject = quizRs.getString("Subject");
+            String startDate = quizRs.getString("Start_date");
+            String endDate = quizRs.getString("end_date");
+            int duration = quizRs.getInt("Duration");
+            int totalQuestions = quizRs.getInt("Total_Questions");
+            int marks = quizRs.getInt("marks");
+%>
+            <tr>
+                <td><%= recordsCount %></td>
+                <td><%= quizId %></td>
+                <td><%= subject %></td>
+                <td><%= startDate %></td>
+                <td><%= endDate %></td>
+                <td><%= duration %></td>
+                <td><%= totalQuestions %></td>
+                <td><%= marks %></td>
+            </tr>
+<%
         }
-    
-       List<Quiz> quizzes = new ArrayList();   
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
-                // Fetch quizzes for the faculty
-                String quizQuery = "select * from quiz where Quiz_id not  in (select Quiz_id from attended_quizzes where StudentID = ?)";
-               PreparedStatement quizStmt = conn.prepareStatement(quizQuery);
-               quizStmt.setInt(1,StudentId);
-                    ResultSet quizRs = quizStmt.executeQuery();
-                    while (quizRs.next()) {
-                        Quiz quiz = new Quiz();
-                        quiz.Quiz_id =  quizRs.getInt("Quiz_id");
-                        quiz.Subject = quizRs.getString("Subject");
-                        quiz.Start_date = quizRs.getString("Start_date");
-                        quiz.end_date  = quizRs.getString("end_date");
-                        quiz.duration = quizRs.getInt("Duration");
-                        quiz.Total_Questions = quizRs.getInt("Total_Questions");
-                        quizzes.add(quiz);
-                    }
-    
-                    if (quizzes.isEmpty()) {
-                        out.println("<p>No quizzes found!!! </p>");
-                    }
-                   
-     
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.println("<p>MySQL JDBC Driver not found: " + e.getMessage() + "</p>");
-        }
-    
-    %>
+        quizStmt.close();
+        conn.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        out.println("<p>Error: " + e.getMessage() + "</p>");
+    }
+%>
+        </table>
+
+        <script>
+            function attemptQuiz(quizId) {
+                window.location.href = 'ViewQuiz.jsp?quizId=' + quizId;
+            }
+        </script>
     
    
     <!-- <head>
@@ -170,51 +202,9 @@
     <!-- </head> -->
     <!-- <body> -->
         
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
-        <br>
         
-    
-        <h3 style="padding-left: 30px;text-align: center;padding-bottom: 30px;color: #5f94da;">All Quizzes</h3>
-        <table>
-            <tr>
-                <th>S.No</th>
-                <th>Quiz ID</th>
-                <th>Subject</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Duration (minutes)</th>
-                <th>Total Questions</th>
-                <th>Actions</th>
-            </tr>
-            <% for (Quiz quiz : quizzes) { 
-                recordsCount++;
-                %>
-                <tr>
-                    <td><%= recordsCount %> </td>
-                    <td><%= quiz.Quiz_id %></td>
-                    <td><%= quiz.Subject %></td>
-                    <td><%= quiz.Start_date %></td>
-                    <td><%= quiz.end_date %></td>
-                    <td><%= quiz.duration %></td>
-                    <td><%= quiz.Total_Questions %></td>
-                    <td>
-                        <button class="operation-button view" onclick="attemptQuiz(<%= quiz.Quiz_id %>)">Attempt Quiz</button>
-                       
-                    </td>
-                </tr>
-            <% } %>
-        </table>
-    
-        <script>
-            function attemptQuiz(quizId) {
-                window.location.href = 'ViewQuiz.jsp?quizId=' + quizId;
-            }
-    
-            
-        </script>
     <!-- </body> -->
-    </html>
+    
     
 
 

@@ -13,7 +13,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
 
 <head>
     <meta charset="utf-8">
-    <title>Online Quiz Application - Preschool Website Template</title>
+    <title>Online Quiz Application</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">

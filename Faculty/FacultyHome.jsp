@@ -75,7 +75,7 @@
                             <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
                         </div>
                     </div>
-                    <a href="about.html" class="nav-item nav-link">View Result</a>
+                    <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a>
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>

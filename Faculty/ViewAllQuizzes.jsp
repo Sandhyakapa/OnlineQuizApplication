@@ -233,6 +233,7 @@
                         <button class="operation-button view" onclick="viewQuiz(<%= quiz.Quiz_id %>)">View</button>
                         <button class="operation-button edit" onclick="editQuiz(<%= quiz.Quiz_id %>)">Edit</button>
                         <button class="operation-button delete" onclick="deleteQuiz(<%= quiz.Quiz_id %>)">Delete</button>
+                        <button class="operation-button results" onclick="viewStudentResults(<%= quiz.Quiz_id %>)">View Student Results</button>
                     </td>
                 </tr>
             <% } %>
@@ -251,7 +252,12 @@
                 if (confirm('Are you sure you want to delete quiz with id '+quizId+' ?')) {
                     window.location.href = 'DeleteQuiz.jsp?quizId=' + quizId;
                 }
+            
             }
+
+            function viewStudentResults(quizId) {
+                window.location.href = 'ViewResult.jsp?quizId=' + quizId;
+        }
         </script>
     </body>
     </html>
