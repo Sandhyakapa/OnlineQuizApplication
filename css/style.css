@@ -501,3 +501,22 @@ h6,
     padding-right: 0;
     border-right: none;
 }
+
+.swal2-confirm.custom-button-error {
+    background-color: #bc2e2e; /* Change to your desired color */
+    color: white; /* Text color */
+    border-radius: 5px; /* Optional: rounded corners */
+    padding: 10px 20px; /* Optional: button padding */
+}
+.swal2-confirm.custom-button-success {
+    background-color: #77d672; /* Change to your desired color */
+    color: white; /* Text color */
+    border-radius: 5px; /* Optional: rounded corners */
+    padding: 10px 20px; /* Optional: button padding */
+}
+
+.my-title {
+    font-family: 'Arial', sans-serif !important; /* Change font family */
+    font-size: 24px !important; /* Change font size */
+    font-weight: bold !important; /* Make it bold */
+}

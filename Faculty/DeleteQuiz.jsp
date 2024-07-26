@@ -1,6 +1,13 @@
 <%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="QuizApp.*" %>
+<html>
+    <head>
+        <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    </head>
+</html>
 
 <%
 // Database connection details
@@ -23,11 +30,36 @@ try {
         String quizQuery = "delete from quiz where Quiz_id=?";
         PreparedStatement quizStmt = conn.prepareStatement(quizQuery);
             quizStmt.setInt(1, quizId);
-            int updatedRecords = quizStmt.executeUpdate();
+            int updatedRecords =0;
+            updatedRecords =quizStmt.executeUpdate();
            if(updatedRecords > 0)
             {
-            out.println("<script>alert('Quiz Deleted successfully.');window.location.href='ViewAllQuizzes.jsp';</script>");
-        } else {
+                %>
+                <script>
+
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: "Quiz with Id : "+<%=quizIdParam%>+ " deleted successfully.",
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                   
+                    customClass: {
+                        title: 'my-title',
+                        confirmButton: 'custom-confirm-button',
+                        cancelButton: 'custom-cancel-button'
+                    }
+                }).then((result) => {
+                    
+                     window.location.href = 'ViewAllQuizzes.jsp';
+                });
+            </script>
+
+
+          
+            <%
+        } 
+        
+        else {
             out.println("<script>alert('Failed to delete quiz '); window.location.href='ViewAllQuizzes.jsp';</script>");
         }
 

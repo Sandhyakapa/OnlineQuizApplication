@@ -37,6 +37,8 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -199,6 +201,9 @@
             .operation-button.delete {
                 background-color: #f44336;
             }
+            .operation-button.results {
+                background-color: #56697d;
+            }
         </style>
     </head>
     <body>
@@ -206,7 +211,7 @@
         <!-- <p style="text-align: right;padding-right: 20px;">Welcome, Faculty: <%= facultyName %></p>
         <p style="text-align: right;padding-right: 20px;">Email: <%= facultyEmail %></p> -->
     
-        <h3 style="padding-left: 30px;">Your Quizzes</h3>
+        <div><h3  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Your Quizzes</h3></div>
         <table>
             <tr>
                 <th>S.No</th>
@@ -249,10 +254,26 @@
             }
     
             function deleteQuiz(quizId) {
-                if (confirm('Are you sure you want to delete quiz with id '+quizId+' ?')) {
-                    window.location.href = 'DeleteQuiz.jsp?quizId=' + quizId;
+
+                Swal.fire({
+                title: 'Are you sure?',
+                html: "You want to delete quiz with Id : "+quizId+",<br>You won\'t be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it',
+                customClass: {
+                    title: 'my-title',
+                    confirmButton: 'custom-confirm-button',
+                    cancelButton: 'custom-cancel-button'
                 }
-            
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'DeleteQuiz.jsp?quizId=' + quizId;
+                } else if (result.dismiss == Swal.DismissReason.cancel) {
+                    window.location.href = 'ViewAllQuizzes.jsp';
+                }
+            });
             }
 
             function viewStudentResults(quizId) {

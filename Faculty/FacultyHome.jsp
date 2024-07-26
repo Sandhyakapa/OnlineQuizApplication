@@ -82,7 +82,7 @@
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="Profile.jsp" class="dropdown-item">View Profile</a>
                             <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
-                            <a href="UpdatePassword.jsp" class="dropdown-item">Update password</a>
+                            <a href="UpadePassword.jsp" class="dropdown-item">Update password</a>
                         </div>
                     </div>
 

@@ -107,38 +107,9 @@
     </style>
 
     <h2>Quiz Results</h2>
-    <title>Quiz Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        h2 {
-            color: #ff6600;
-        }
-    </style>
-</head>
-<body>
-
     <%
         String quizId = request.getParameter("quizId");
         Integer facultyId = (Integer) session.getAttribute("facultyId");
-        out.println("FacultyId: "+ facultyId);
-        out.println("QuizId"+quizId);
 
         if (quizId == null || facultyId == null) {
             out.println("Quiz ID or Faculty ID is missing.");
@@ -158,42 +129,63 @@
 
                 conn = DriverManager.getConnection(url, username, password);
 
-                String sql =  "SELECT quiz.Quiz_id, quiz.Subject, quiz.Start_date, quiz.end_date, quiz.Duration, quiz.Total_Questions, student.StudentID, student.Name AS StudentName, attended_quizzes.marks,attended_quizzes.Attempted_TimeStamp FROM quiz JOIN attended_quizzes ON quiz.Quiz_id = attended_quizzes.Quiz_id JOIN student ON attended_quizzes.StudentID = student.StudentID JOIN faculty ON faculty.FacultyID = quiz.Created_By WHERE faculty.FacultyID = ? AND quiz.Quiz_id = ?";
+                // Debug prints for connection and parameters
+                out.println("Connection established.");
+                out.println("Faculty ID: " + facultyId);
+                out.println("Quiz ID: " + quizId);
+
+                String sql =  "SELECT quiz.Quiz_id, quiz.Subject, quiz.Start_date, quiz.end_date, quiz.Duration, quiz.Total_Questions, student.StudentID, student.Name AS StudentName, attended_quizzes.marks, attended_quizzes.Attempted_TimeStamp " +
+                              "FROM quiz " +
+                              "JOIN attended_quizzes ON quiz.Quiz_id = attended_quizzes.Quiz_id " +
+                              "JOIN student ON attended_quizzes.StudentID = student.StudentID " +
+                              "JOIN faculty ON faculty.FacultyID = quiz.Created_By " +
+                              "WHERE faculty.FacultyID = ? AND quiz.Quiz_id = ?";
 
                 pstmt = conn.prepareStatement(sql);
-                pstmt.setInt(1,facultyId);
+                pstmt.setInt(1, facultyId);
                 pstmt.setInt(2, Integer.parseInt(quizId));
 
                 rs = pstmt.executeQuery();
-                
 
-               // if (!rs.isBeforeFirst()) {
-                 //   out.println("No results found for the selected quiz and faculty.");
-                //} else { 
+                // Debug print to verify result set
+                int rowCount = 0;
+                while (rs.next()) {
+                    rowCount++;
+                    out.println("Row " + rowCount + ": ");
+                    out.println("Quiz_id: " + rs.getInt("Quiz_id"));
+                    out.println("Subject: " + rs.getString("Subject"));
+                    out.println("Start_date: " + rs.getString("Start_date"));
+                    out.println("End_date: " + rs.getString("end_date"));
+                    out.println("Duration: " + rs.getInt("Duration"));
+                    out.println("Total_Questions: " + rs.getInt("Total_Questions"));
+                    out.println("Attempted_TimeStamp: " + rs.getTimestamp("Attempted_TimeStamp"));
+                    out.println("StudentID: " + rs.getInt("StudentID"));
+                    out.println("StudentName: " + rs.getString("StudentName"));
+                    out.println("Marks: " + rs.getInt("marks"));
+                }
+                out.println("Total rows retrieved: " + rowCount);
+
+                if (rowCount == 0) {
+                    out.println("No results found for the selected quiz and faculty.");
+                } else {
     %>
     <table>
         <tr>
-            
             <th>S.No</th>
             <th>Quiz_ID</th>
             <th>Subject</th>
             <th>Start date</th>
-            <th>end date</th>
+            <th>End date</th>
             <th>Duration</th>
             <th>Total_Questions</th>
             <th>Attempted_Time</th>
             <th>Student ID</th>
             <th>Student Name</th>
             <th>Marks</th>
-
-            <!-- <th>Student Email</th> -->
-            
-
         </tr>
         <%
             int serialNo = 1;
             while (rs.next()) {
-              
         %>
         <tr>
             <td><%= serialNo++ %></td>
@@ -207,35 +199,27 @@
             <td><%= rs.getInt("StudentID") %></td>
             <td><%= rs.getString("StudentName") %></td>
             <td><%= rs.getInt("marks") %></td>
-            <!-- <td></td> -->
-            
         </tr>
         <%
             }
         %>
     </table>
     <%
-              //  }
+                }
             } catch (Exception e) {
-                out.println(e);
                 out.println("Error: " + e.getMessage());
-               // e.printStackTrace(out);
-            } 
-            
-            /*finally {
+               // e.printStackTrace(out); // Print full stack trace for debugging
+            } finally {
                 try {
                     if (rs != null) rs.close();
                     if (pstmt != null) pstmt.close();
                     if (conn != null) conn.close();
                 } catch (SQLException e) {
-                    //e.printStackTrace(out);
+                    out.println("Error closing resources: " + e.getMessage());
                 }
-            }*/
+            }
         }
     %>
-</body>
-</html>
-
 <!--END -- Copy Your Form HTML code here-->
 
 

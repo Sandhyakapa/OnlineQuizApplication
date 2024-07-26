@@ -1,3 +1,10 @@
+<html>
+    <head>
+        <link href="../css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    </head>
+    <body>
 <%@ page import = "java.sql.*" %>
    <%
    String Email = request.getParameter("Email");
@@ -26,10 +33,28 @@
     else{
         
         %>
+
         <script type="text/javascript">
             // JavaScript to display an alert popup
-            alert("Login Failed, Pleae try again!!!");
-           document.location="Login.html";
+
+            Swal.fire({
+                title: 'Login Failed!',
+                text: 'Invalid EmailId or Password, Please try again!!!',
+                icon: 'error',
+                confirmButtonText : 'Login',
+                customClass: {
+                    title: 'my-title',
+                    content: 'custom-content',                   
+                    confirmButton: 'custom-button-error' // Apply custom class here
+                                   
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to another page
+                    window.location.href = 'Login.html';
+                }
+            });;
+           
         </script>
     <%
 }
@@ -40,3 +65,5 @@
    }
 
    %>
+</body>
+</html>

@@ -254,36 +254,36 @@ String facultyName1 = (String) session.getAttribute("facultyName");
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>View Quiz</h2>
+    <div class="container" style = "background-color:  rgb(231, 231, 220);">
+        <div><h3  style="text-align: center;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">View Quiz</h3></div>
         <div class="row g-3">
             <div class="col-sm-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control border-0" id="Subject" name="Subject" value="<%= quiz.Subject %>" placeholder="Subject" readonly>
+                    <input type="text" class="form-control border-0" style ="pointer-events: none;" id="Subject" name="Subject" value="<%= quiz.Subject %>" placeholder="Subject" >
                     <label for="Subject"><b>Subject:</b></label>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-floating">
-                    <input type="date" class="form-control border-0" id="Start_date" name="Start_date" value="<%= quiz.Start_date %>" placeholder="Start Date" readonly>
+                    <input type="date" class="form-control border-0" style ="pointer-events: none;" id="Start_date" name="Start_date" value="<%= quiz.Start_date %>" placeholder="Start Date" >
                     <label for="Start_date"><b>Start Date:</b></label>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-floating">
-                    <input type="date" class="form-control border-0" id="end_date" name="end_date" value="<%= quiz.end_date %>" placeholder="End Date" readonly>
+                    <input type="date" class="form-control border-0" style ="pointer-events: none;" id="end_date" name="end_date" value="<%= quiz.end_date %>" placeholder="End Date" >
                     <label for="end_date"><b>End Date:</b></label>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-floating">
-                    <input type="number" class="form-control border-0" id="duration" name="duration" value="<%= quiz.duration %>" placeholder="Duration" readonly>
+                    <input type="number" class="form-control border-0" style ="pointer-events: none;" id="duration" name="duration" value="<%= quiz.duration %>" placeholder="Duration" >
                     <label for="duration"><b>Duration:</b></label>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-floating">
-                    <input type="number" class="form-control border-0" id="Total_Questions" name="Total_Questions" value="<%= quiz.Total_Questions %>" placeholder="Total Questions" readonly>
+                    <input type="number" class="form-control border-0" style ="pointer-events: none;" id="Total_Questions" name="Total_Questions" value="<%= quiz.Total_Questions %>" placeholder="Total Questions" >
                     <label for="Total_Questions"><b>Total Questions:</b></label>
                 </div>
             </div>
@@ -301,7 +301,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
         </div> -->
 
         <div class="questions-container">
-            <h3>Questions</h3>
+            <h3 style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Questions</h3>
             <% for (int i = 0; i < questions.size(); i++) {
                 Question question = questions.get(i); 
                 int answerCode = question.Correct_Answer + 16;
@@ -316,7 +316,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
                     <p class="option"><strong>B:</strong> <%= question.Option_B %></p>
                     <p class="option"><strong>C:</strong> <%= question.Option_C %></p>
                     <p class="option"><strong>D:</strong> <%= question.Option_D %></p>
-                    <input type="button" class="btn" style="border: 2px;background-color: #7ebcb3; color: #170f2d;" value="Correct Answer:   <%
+                    <input type="button" class="btn" style="border: 2px;background-color: #b3d6e3; color: #170f2d;" value="Correct Answer:   <%
                         
                       
                         out.println(Character.toString(answer));
@@ -325,7 +325,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
                 </div>
             <% } %>
         </div>
-       <div style="text-align: right;"> <a href="ViewAllQuizzes.jsp" class="btn btn-lg btn-primary">View All Quizzes</a></div>
+       <div style="text-align: right;"> <a href="ViewAllQuizzes.jsp" class="btn btn-lg" style ="background-color: rgb(164, 75, 75); color: white;">View All Quizzes</a></div>
     </div>
 </body>
 </html>

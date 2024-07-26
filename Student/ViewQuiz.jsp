@@ -143,14 +143,14 @@
                                         <a href="ViewAllQuizzes.jsp" class="dropdown-item">View/Attempt Quizzes</a>
                                     </div>
                                 </div>
-                                <a href="about.html" class="nav-item nav-link">View Result</a>
+                                <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a>
 
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                                     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                                         <a href="Profile.jsp" class="dropdown-item">View Profile</a>
                                         <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
-                                        <a href="call-to-action.html" class="dropdown-item">Update password</a>
+                                        <a href="UpdatePassword.jsp" class="dropdown-item">Update password</a>
                                     </div>
                                 </div>
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beautiful Alert</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    <button id="showAlert">Show Alert</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script>
+        document.getElementById('showAlert').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Beautiful Alert!',
+                text: 'This is a custom alert with SweetAlert2.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                customClass: {
+                    title: 'custom-title',
+                    content: 'custom-content'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

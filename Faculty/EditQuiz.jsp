@@ -39,16 +39,17 @@ String facultyName1 = (String) session.getAttribute("facultyName");
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> -->
         <!-- Spinner End -->
 
 
@@ -245,9 +246,9 @@ String facultyName1 = (String) session.getAttribute("facultyName");
     
 </head>
 <body>
-    <div class="container">
-        <h2>Edit Quiz - ID:<%= quizId %></h2>
-        <h4 style="text-align: center;color: green;">Created By:<%= session.getAttribute("facultyName") %></h4>
+    <div class="container" style="background-color:  rgb(231, 231, 220);">
+        <div><h2  style="text-align: center;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Edit Quiz - ID:<%= quizId %></h2>
+        <h4 style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;   color: green;">Created By: <%= session.getAttribute("facultyName") %></h4>
         <div class="quiz-details">
            
           
@@ -260,6 +261,12 @@ String facultyName1 = (String) session.getAttribute("facultyName");
             <form action="UpdateQuiz.jsp" method="post" onsubmit="return validateForm()">
                 <input type="hidden" name="quizId" value="<%= quizId %>">
                 <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control border-0" id="Quizid" name="Quizid" value="<%= quiz.Quiz_id %>" placeholder="Quizid">
+                            <label for="Subject"><b>Quiz Id:</b></label>
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-floating">
                             <input type="text" class="form-control border-0" id="Subject" name="Subject" value="<%= quiz.Subject %>" placeholder="Subject">
@@ -293,11 +300,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
                             <label for="Total_Questions"><b>Total Questions:</b></label>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-floating">
-                       
-                        </div>
-                    </div>
+                   
                     <div class="col-sm-6">
                        
                         <div style="text-align: right;"> <input type="submit" value="Update" class="btn"
@@ -307,7 +310,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
                 <div class="col-sm-6">
                     <div style="text-align: left;" >
                         <input type="button" value="Cancel" class="btn"
-                            style="text-align: center;background-color: #b96767;color: white; width: 150px;height: 50px;" onclick="window.location.href='ViewAllQuizzes.jsp';">
+                            style="text-align: center;background-color: #be6464;color: white; width: 150px;height: 50px;" onclick="window.location.href='ViewAllQuizzes.jsp';">
                         <!-- <a href="ViewAllQuizzes.jsp" style="text-align: center;background-color: #b96767;color:white;width: 150px;height: 50px;" class="btn"
                         >Cancel</a> -->
                         </div>

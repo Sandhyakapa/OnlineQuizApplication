@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beautiful Confirm Box</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    <button id="showConfirm">Show Confirm</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script>
+        document.getElementById('showConfirm').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it',
+                customClass: {
+                    confirmButton: 'custom-confirm-button',
+                    cancelButton: 'custom-cancel-button'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        'Your file is safe :)',
+                        'error'
+                    )
+                }
+            });
+        });
+    </script>
+    <style>
+        /* Custom styling for confirm button */
+        .custom-confirm-button {
+            background-color: #4CAF50 !important; /* Green background */
+            color: white !important; /* White text */
+        }
+        /* Custom styling for cancel button */
+        .custom-cancel-button {
+            background-color

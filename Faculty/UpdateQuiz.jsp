@@ -1,6 +1,13 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<html>
+    <head>
+        <link href="../css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    </head>
+</html>
 
 <%
     // Retrieve form parameters
@@ -36,9 +43,58 @@
         int rowsUpdated = ps.executeUpdate();
 
         if (rowsUpdated > 0) {
-            out.println("<script>alert('Quiz details updated successfully.'); window.location.href='ViewAllQuizzes.jsp';</script>");
+            %>
+            <script type="text/javascript">
+                // JavaScript to display an alert popup
+    
+                Swal.fire({
+                    title: 'Updated!',
+                    text: 'Quiz details updated successfully.',
+                    icon: 'success',
+                    confirmButtonText : 'OK',
+                    customClass: {
+                        title: 'my-title',
+                        content: 'custom-content',                   
+                        confirmButton: 'custom-button-success' // Apply custom class here
+                                       
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to another page
+                        window.location.href = 'EditQuiz.jsp?quizId=<%=quizId%>';
+                    }
+                });;
+               
+            </script>
+
+
+           <%
         } else {
-            out.println("<script>alert('Failed to update quiz details.'); window.location.href='ViewAllQuizzes.jsp';</script>");
+            %>
+            <script type="text/javascript">
+                // JavaScript to display an alert popup
+    
+                Swal.fire({
+                    title: 'Update Failed!',
+                    text: 'Quiz details update failed.',
+                    icon: 'error',
+                    confirmButtonText : 'OK',
+                    customClass: {
+                        title: 'my-title',
+                        content: 'custom-content',                   
+                        confirmButton: 'custom-button-error' // Apply custom class here
+                                       
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to another page
+                        window.location.href = 'EditQuiz.jsp?quizId=<%=quizId%>';
+                    }
+                });;
+               
+            </script>
+            <%
+            
         }
     } catch (SQLException e) {
         e.printStackTrace();
