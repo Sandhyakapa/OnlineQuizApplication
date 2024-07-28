@@ -1,6 +1,13 @@
 <%@ page import="java.util.*" %>
 <%@ page import="QuizApp.*" %>
 <%@ page import = "java.sql.*" %>
+<html>
+    <head>
+        <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    </head>
+</html>
 <% 
 
 Quiz quiz = (Quiz) session.getAttribute("quiz");
@@ -31,9 +38,11 @@ if (currentQuestion < 3) {
     response.sendRedirect("CreateQuizWithQuestions.jsp");
 } else {
     // Code for inserting the data into the database
-    out.println("Quiz Name: " + quiz.Subject + "::Quiz StartDate:" + quiz.Start_date);
-    out.println("Quiz Name: " + quiz.Subject + "::Quiz StartDate:" + quiz.Start_date + "  Duration: " + quiz.duration + "  Total_Questions:" + quiz.Total_Questions);
+    //out.println("Quiz Name: " + quiz.Subject + "::Quiz StartDate:" + quiz.Start_date);
+   // out.println("Quiz Name: " + quiz.Subject + "::Quiz StartDate:" + quiz.Start_date + "  Duration: " + quiz.duration + "  Total_Questions:" + quiz.Total_Questions);
     // first insert for quiz table
+
+
     Integer facultyId = (Integer) session.getAttribute("facultyId");
     if (facultyId == null) {
         response.sendRedirect("LoginProcess.jsp");
@@ -64,6 +73,7 @@ if (currentQuestion < 3) {
             rs = quizPs.getGeneratedKeys();
             if (rs.next()) {
                 int quizId = rs.getInt(1);
+                int updateCount =0;
 
                 for (int key : quiz.Questions.keySet()) {
                     Question questionObj = quiz.Questions.get(key);
@@ -78,12 +88,61 @@ if (currentQuestion < 3) {
                     questionPs.setString(6, questionObj.Option_C);
                     questionPs.setString(7, questionObj.Option_D);
                     questionPs.setString(8, String.valueOf(questionObj.Correct_Answer));
-                    questionPs.executeUpdate();
+                    updateCount += questionPs.executeUpdate();
+                     
+
+                   
+                    }
+
+                    if(updateCount == quiz.Questions.size()){
+                        %>
+                        <script>
+
+                            Swal.fire({
+                                title: 'Success!',
+                                text: "Quiz Created Successfully.",
+                                icon: 'success',
+                                confirmButtonText: 'OK',
+                               
+                                customClass: {
+                                    title: 'my-title',
+                                    confirmButton: 'custom-confirm-button',
+                                    
+                                }
+                            }).then((result) => {
+                                
+                                 window.location.href = 'ViewAllQuizzes.jsp';
+                            });
+                        </script>
+                        <%
+                    }
+                    
+                    else{
+                        %>
+                        <script>
+
+                            Swal.fire({
+                                title: 'Failed!',
+                                text: "Quiz Creation Failed.",
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                               
+                                customClass: {
+                                    title: 'my-title',
+                                    confirmButton: 'custom-confirm-button',
+                                    
+                                }
+                            }).then((result) => {
+                                
+                                 window.location.href = 'CreateQuizFrontend.jsp';
+                            });
+                        </script>
+                        <%
                 }
             }
         }
-
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
         out.println(e);
     } finally {
         // Close resources

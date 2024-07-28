@@ -101,13 +101,12 @@
         th {
             background-color: #f2f2f2;
         }
-        h2 {
-            color: #ff6600;
-        }
+      
     </style>
 
-    <h2>Quiz Results</h2>
-    <title>Quiz Results</title>
+    <!-- <h2>Quiz Results</h2> -->
+    <div><h2  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Quiz Results</h2></div>
+    <!-- <title>Quiz Results</title> -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -118,7 +117,7 @@
             margin: 20px 0;
         }
         table, th, td {
-            border: 1px solid #ddd;
+            border: 0px solid #ddd;
         }
         th, td {
             padding: 8px;
@@ -127,9 +126,7 @@
         th {
             background-color: #f2f2f2;
         }
-        h2 {
-            color: #ff6600;
-        }
+       
     </style>
 </head>
 <body>
@@ -137,8 +134,8 @@
     <%
         String quizId = request.getParameter("quizId");
         Integer facultyId = (Integer) session.getAttribute("facultyId");
-        out.println("FacultyId: "+ facultyId);
-        out.println("QuizId"+quizId);
+        //out.println("FacultyId: "+ facultyId);
+       // out.println("QuizId"+quizId);
 
         if (quizId == null || facultyId == null) {
             out.println("Quiz ID or Faculty ID is missing.");
@@ -175,14 +172,14 @@
         <tr>
             
             <th>S.No</th>
-            <th>Quiz_ID</th>
+            <th>Quiz Id</th>
             <th>Subject</th>
             <th>Start date</th>
-            <th>end date</th>
+            <th>End date</th>
             <th>Duration</th>
-            <th>Total_Questions</th>
-            <th>Attempted_Time</th>
-            <th>Student ID</th>
+            <th>Total Questions</th>
+            <th>Attempted Time</th>
+            <th>Student Id</th>
             <th>Student Name</th>
             <th>Marks</th>
 

@@ -6,7 +6,7 @@
         String facultyEmail = (String) session.getAttribute("facultyEmail");
         String facultyName = (String) session.getAttribute("facultyName");
         %> 
-%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -155,7 +155,8 @@
         <h3 style="text-align: center;">Create Quiz :: Question - <%= session.getAttribute("currentQuestion")%></h3>
         <form id="quizForm" action="CreateQuizWithQuestionsPost.jsp" method="POST">
             <!--<form  action="Questions.jsp" method="POST"></form>-->
-            
+
+            <div class="row g-3">
             <div class="form-group">
                 <label for="question1">Question :</label>
                 <textarea id="Question" name="Question" style="height: 100px;"></textarea>
@@ -189,12 +190,28 @@
            
             
             <!--<input type="submit" value="Create Quiz">-->
-            <div class="col-sm-6">
+            <!-- <div class="col-sm-6">
                 <button class="btn btn-primary w-50 py-3" type="submit"  style="background-color:rgb(69, 207, 96) ;">Next</button>
                 <a class="btn btn-primary w-49 py-3"  style="width: 80px; float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.jsp">Exit</a>
             </div>
                 <div class="col-sm-6">
                    
+                </div> -->
+
+                <div class="col-sm-6">
+                    <!-- <input type="submit" value="Proceed" style="background-color:rgb(69, 207, 96);">  -->
+                    <div style="text-align: right;"><input type="submit" value="Next" class="btn"
+                                style="text-align: center;background-color: green;color: white; width: 150px;height: 50px;"></div>
+                    <!--<button class="btn btn-primary w-50 py-3" type="submit"  style="background-color:rgb(69, 207, 96) ;">Proceed</button>-->
+                    <!-- <a class="btn btn-primary w-49 py-3"  style="background-color:rgb(87, 213, 83);" href="CreateQuiz.jsp">Proceed</a> -->
+                    <!-- <a class="btn btn-primary w-49 py-3"  style="float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.jsp">Cancel</a> -->
+                </div>  
+               
+                    <div class="col-sm-6">
+                        <div style="text-align: left;" ><input type="button" value="Exit" class="btn"
+                                style="text-align: center;background-color: #be6464;color: white; width: 150px;height: 50px;" onclick="window.location.href='FacultyHome.jsp';"></div>
+                       
+                    </div>
                 </div>
             
             

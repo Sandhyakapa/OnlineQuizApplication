@@ -151,10 +151,10 @@
         </style>
     </head>
     <body>
-        <h1>Create Quiz</h1>
+        <div><h2  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Create Quiz</h2></div>
        <p style="text-align: center;">Provide the Quiz details here and we navigate you to add questions in the following screens.</p>
         <form id="quizForm" action="CreateQuiz.jsp" method="POST">
-            
+            <div class="row g-3">
             <div class="form-group">
                 <label for="question1">Subject:</label>
                 
@@ -179,14 +179,22 @@
             
             <!--<input type="submit" value="Create Quiz">-->
             <div class="col-sm-6">
-                <input type="submit" value="Proceed" style="background-color:rgb(69, 207, 96);"> 
+                <!-- <input type="submit" value="Proceed" style="background-color:rgb(69, 207, 96);">  -->
+                <div style="text-align: right;"><input type="submit" value="Proceed" class="btn"
+                            style="text-align: center;background-color: green;color: white; width: 150px;height: 50px;"></div>
                 <!--<button class="btn btn-primary w-50 py-3" type="submit"  style="background-color:rgb(69, 207, 96) ;">Proceed</button>-->
                 <!-- <a class="btn btn-primary w-49 py-3"  style="background-color:rgb(87, 213, 83);" href="CreateQuiz.jsp">Proceed</a> -->
-                <a class="btn btn-primary w-49 py-3"  style="float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.jsp">Cancel</a>
-            </div>
+                <!-- <a class="btn btn-primary w-49 py-3"  style="float: right;background-color:rgb(207, 66, 73);" href="FacultyHome.jsp">Cancel</a> -->
+            </div>  
+           
                 <div class="col-sm-6">
+                    <div style="text-align: left;" ><input type="button" value="Cancel" class="btn"
+                            style="text-align: center;background-color: #be6464;color: white; width: 150px;height: 50px;" onclick="window.location.href='FacultyHome.jsp';"></div>
                    
                 </div>
+            </div>
+
+                
             
             
            

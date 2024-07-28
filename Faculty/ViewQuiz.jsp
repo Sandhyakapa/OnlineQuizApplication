@@ -255,7 +255,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
 </head>
 <body>
     <div class="container" style = "background-color:  rgb(231, 231, 220);">
-        <div><h3  style="text-align: center;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">View Quiz</h3></div>
+        <div><h3  style="text-align: center;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Quiz details</h3></div>
         <div class="row g-3">
             <div class="col-sm-6">
                 <div class="form-floating">
@@ -325,7 +325,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
                 </div>
             <% } %>
         </div>
-       <div style="text-align: right;"> <a href="ViewAllQuizzes.jsp" class="btn btn-lg" style ="background-color: rgb(164, 75, 75); color: white;">View All Quizzes</a></div>
+       <div style="text-align: right;"> <a href="ViewAllQuizzes.jsp" class="btn btn-lg" style ="background-color: rgb(49, 96, 86); color: white;">View All Quizzes</a></div>
     </div>
 </body>
 </html>

@@ -248,7 +248,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
 <body>
     <div class="container" style="background-color:  rgb(231, 231, 220);">
         <div><h2  style="text-align: center;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Edit Quiz - ID:<%= quizId %></h2>
-        <h4 style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;   color: green;">Created By: <%= session.getAttribute("facultyName") %></h4>
+        <!-- <h4 style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;   color: green;">Created By: <%= session.getAttribute("facultyName") %></h4> -->
         <div class="quiz-details">
            
           
@@ -263,7 +263,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control border-0" id="Quizid" name="Quizid" value="<%= quiz.Quiz_id %>" placeholder="Quizid">
+                            <input type="text" class="form-control border-0" id="Quizid" name="Quizid" value="<%= quiz.Quiz_id %>" placeholder="Quizid" readonly>
                             <label for="Subject"><b>Quiz Id:</b></label>
                         </div>
                     </div>
