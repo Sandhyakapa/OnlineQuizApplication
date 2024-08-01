@@ -96,6 +96,7 @@
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
         <br>
+        <div style="text-align: center" ><h3 style="font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Welcome to Student Dashboard</h3></div>
        <!-- Carousel Start -->
        <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
@@ -104,13 +105,13 @@
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .2);">
                     <div class="container">
                         <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
+                            <!-- <div class="col-10 col-lg-8">
                                 <h1 class="display-2 text-white animated slideInDown mb-4">Welcome, Student</h1>
                                 <p class="fs-5 fw-medium text-white mb-4 pb-2">Explore our online quiz application designed to enhance your teaching experience. Create, manage, and share quizzes effortlessly. Empower your students with interactive assessments and track their progress in real-time. Get started today and make learning more engaging and effective!
 
                                 </p>
                                 <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Learn More</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

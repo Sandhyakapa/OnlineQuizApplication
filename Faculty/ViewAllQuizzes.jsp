@@ -66,15 +66,15 @@
                     
                     
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quiz</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quizzes</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="CreateQuizFrontend.jsp" class="dropdown-item">Create Quiz</a>
                             <!-- <a href="EditQuiz.html" class="dropdown-item">Edit Quiz</a>
                             <a href="DeleteQuiz.html" class="dropdown-item">Delete Quiz</a> -->
-                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View All Quizzes</a>
                         </div>
                     </div>
-                    <a href="about.html" class="nav-item nav-link">View Result</a>
+                    <!-- <a href="about.html" class="nav-item nav-link">View Result</a> -->
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>

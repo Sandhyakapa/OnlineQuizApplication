@@ -239,7 +239,7 @@
             width: 120px;
             height: 120px;
             object-fit: cover;
-            border: 3px solid #007bff;
+            border: 3px solid #141212;
         }
         .profile-header h1 {
             margin: 10px 0;
@@ -327,15 +327,17 @@
 <!-- </head> -->
 
 <body>
-    <div class="container">
+    <div class="container" style="width:30%">
         <div class="profile-header">
-            <img src="../img/testimonial-1.jpg" alt="Profile Picture"> <!-- Placeholder image -->
-            <h1>Edit Profile</h1>
+            <img src="../img/iconFaculty.jpg" alt="Profile Picture"> <!-- Placeholder image -->
+            <!-- <h1>Edit Profile</h1> -->
+            <h3  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Edit Profile</h3>
             <p>Update your profile details below.</p>
         </div>
         <form method="post">
             <div class="profile-details">
-                <h2>Profile Details</h2>
+                <!-- <h2>Profile Details</h2> -->
+                <u><h4  style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Profile Details</h4></u>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" value="<%= email %>" required>

@@ -122,22 +122,22 @@
                     
                     
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quiz</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quizzes</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="CreateQuizFrontend.jsp" class="dropdown-item">Create Quiz</a>
                             <!-- <a href="EditQuiz.html" class="dropdown-item">Edit Quiz</a>
                             <a href="DeleteQuiz.html" class="dropdown-item">Delete Quiz</a> -->
-                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View All Quizzes</a>
                         </div>
                     </div>
-                    <a href="about.html" class="nav-item nav-link">View Result</a>
+                    <!-- <a href="about.html" class="nav-item nav-link">View Result</a> -->
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="Profile.jsp" class="dropdown-item">View Profile</a>
                             <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
-                            <a href="call-to-action.html" class="dropdown-item">Update Profile</a>
+                            <a href="UpadePassword.jsp" class="dropdown-item">Update Password</a>
                         </div>
                     </div>
 
@@ -352,14 +352,16 @@
 </style>
 <!-- </head> -->
 <body>
-<div class="container">
+<div class="container" style="width:35%">
     <div class="profile-header">
-        <img src="../img/Profile3.jpg" alt="Profile Picture"> <!-- Placeholder image -->
-        <h1><%= name %></h1>
+        <img src="../img/iconFaculty.jpg" alt="Profile Picture"> <!-- Placeholder image -->
+        <!-- <h1><%= name %></h1> -->
+        <h2  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><%= name %></h2>
         <p>Faculty Member</p>
     </div>
     <div class="profile-details">
-        <h2>Profile Details</h2>
+        <!-- <h2>Profile Details</h2> -->
+        <h2  style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Profile Details</h2>
         <div class="detail-item">
             <strong>Email:</strong>
             <span><%= email %></span>

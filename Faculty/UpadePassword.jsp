@@ -64,15 +64,15 @@
                     
                     
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quiz</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quizzes</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="CreateQuizFrontend.jsp" class="dropdown-item">Create Quiz</a>
                             <!-- <a href="EditQuiz.html" class="dropdown-item">Edit Quiz</a>
                             <a href="DeleteQuiz.html" class="dropdown-item">Delete Quiz</a> -->
-                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View All Quizzes</a>
                         </div>
                     </div>
-                    <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a>
+                    <!-- <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a> -->
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
@@ -124,7 +124,7 @@
             border-radius: 4px;
         }
         input[type="submit"] {
-            background-color: #ff6600;
+            background-color: #439c46;
             color: #fff;
             border: none;
             padding: 10px;
@@ -136,12 +136,18 @@
         }
         .message {
             margin: 12px 0;
+            color: brown;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Update Password</h2>
+    <div><h3  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Update Password</h3></div>
+    <div class="container" style="width:30%">
+        <!-- <h2>Update Password</h2> -->
+        
         <%
             String message = "";
             String currentPassword = request.getParameter("currentPassword");
@@ -215,12 +221,14 @@
             <label for="newPassword">New Password:</label>
             <input type="password" id="newPassword" name="newPassword" required>
             
-            <label for="confirmPassword">Confirm New Password:</label>
+            <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
             
-            <input type="submit" value="Update Password">
+            <div style="text-align: center"><input type="submit" value="Update Password"></div>
+            
         </form>
         <div class="message"><%= message %></div>
     </div>
+    <br>
 </body>
 </html>
