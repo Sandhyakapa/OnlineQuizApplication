@@ -495,7 +495,7 @@
              
             %>
             <div  class="question">
-                <p class="question-number">Question:</p>
+                <p class="question-number">Question <%= i + 1 %>:</p>
                 <p class="question-text" name=""><%= question.question %></p>
                
                 <label class="custom-radio"><%= question.Option_A %>
@@ -623,7 +623,7 @@
     });
 });
         window.onload = function () {
-            var duration = 5;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
+            var duration = 20;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };

@@ -191,6 +191,102 @@
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
 
+    <!-- <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-header img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 2px solid #5f1f25;
+            margin-bottom: 15px;
+        }
+        .profile-header h1 {
+            margin: 0;
+            color: #333;
+            font-size: 2.5em;
+        }
+        .profile-header p {
+            color: #777;
+            font-size: 1.2em;
+        }
+        .profile-details {
+            margin-top: 20px;
+        }
+        .profile-details h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            color: #333;
+            font-size: 1.8em;
+        }
+        .profile-details .detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .profile-details .detail-item strong {
+            display: inline-block;
+            width: 200px;
+            color: #333;
+            font-weight: 600;
+        }
+        .profile-details .detail-item span {
+            color: #555;
+            font-size: 1.1em;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .actions a {
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 15px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .actions a.edit {
+            background-color: #007bff;
+            color: #fff;
+            border: 2px solid #007bff;
+        }
+        .actions a.edit:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .actions a.logout {
+            background-color: #dc3545;
+            color: #fff;
+            border: 2px solid #dc3545;
+        }
+        .actions a.logout:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+            transform: translateY(-2px);
+        }
+    </style> -->
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -289,9 +385,9 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container" style="width:35%">
     <div class="profile-header">
-        <img src="../img/Profile3.jpg" alt="Profile Picture"> <!-- Placeholder image -->
+        <img src="../img/student-profile-icon.jpg" alt="Profile Picture"> <!-- Placeholder image -->
         <h1><%= studentName %></h1>
         <p>Student</p>
     </div>

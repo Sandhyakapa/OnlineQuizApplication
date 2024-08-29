@@ -115,7 +115,7 @@
         <div style="text-align: right; padding-right: 30px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold; color: brown;"><%= StudentEmailId %></div>
         <br>
         
-        <h3 style="padding-left: 30px; text-align: center; padding-bottom: 30px; color: #5f94da;">View Results</h3>
+        <div><h3  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">View Results</h3></div>
         <table>
             <tr>
                 <th>S.No</th>

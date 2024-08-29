@@ -45,12 +45,19 @@
             pstmt.setInt(5, studentID);
             int rowsUpdated = pstmt.executeUpdate();
 
-            if (rowsUpdated > 0) {
+           /* if (rowsUpdated > 0) {
+
                 request.setAttribute("message", "Profile updated successfully!");
                 request.setAttribute("messageType", "success");
             } else {
                 request.setAttribute("message", "Profile update failed. No changes made.");
                 request.setAttribute("messageType", "error");
+            } */
+
+            if (rowsUpdated > 0) {
+                out.println("<div class='message success'>Profile updated successfully!</div>");
+            } else {
+                out.println("<div class='message error'>Profile update failed. No changes made.</div>");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,7 +192,7 @@
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%=studentEmail%></div>
         <br>
        <!-- Carousel Start -->
-       <div class="container-fluid p-0 mb-5">
+       <!-- <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
             <div class="owl-carousel-item position-relative">
                 <img class="img-fluid" src="../img/StudentHomepage.jpg" alt="">
@@ -208,14 +215,15 @@
     </div> 
 
 
-<!-- <head> -->
+ <head> -->
+    <!--
     <meta charset="utf-8">
     <title>Edit Profile</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"> -->
+    <style> 
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f9f9f9;
@@ -239,7 +247,7 @@
             width: 120px;
             height: 120px;
             object-fit: cover;
-            border: 3px solid #007bff;
+            border: 3px solid #141212;
         }
         .profile-header h1 {
             margin: 10px 0;
@@ -327,19 +335,23 @@
 <!-- </head> -->
 
 <!-- <body> -->
-    <div class="container">
+    <div class="container" style="width:30%">
         <div class="profile-header">
-            <img src="../img/testimonial-1.jpg" alt="Profile Picture"> <!-- Placeholder image -->
-            <h1>Edit Profile</h1>
+            <img src="../img/student-profile-icon.jpg" alt="Profile Picture"> <!-- Placeholder image -->
+            <!-- <h1>Edit Profile</h1> -->
+            <h3  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Edit Profile</h3>
             <p>Update your profile details below.</p>
         </div>
-        <form  method="post">
+        <form method="post">
             <div class="profile-details">
-                <h2>Profile Details</h2>
+                <!-- <h2>Profile Details</h2> -->
+                <u><h4  style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Profile Details</h4></u>
+                
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" value="<%= email %>" required>
                 </div>
+
                 <div class="form-group">
                     <label for="name">Full Name:</label>
                     <input type="text" id="name" name="name" value="<%= name %>" required>
@@ -371,6 +383,6 @@
             %>
         </form>
     </div>
-<!-- </body> -->
+ </body> 
 
 </html>

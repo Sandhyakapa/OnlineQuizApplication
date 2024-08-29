@@ -175,7 +175,8 @@
         <br>
         
     
-        <h3 style="padding-left: 30px;text-align: center;padding-bottom: 30px;color: #5f94da;">All Quizzes</h3>
+        <!-- <h3 style="padding-left: 30px;text-align: center;padding-bottom: 30px;color: #5f94da;">All Quizzes</h3> -->
+        <div><h3  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">All Quizzes</h3></div>
         <table>
             <tr>
                 <th>S.No</th>
