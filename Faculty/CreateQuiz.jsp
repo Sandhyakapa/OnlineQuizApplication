@@ -42,6 +42,7 @@ String Total_QuestionsStr = request.getParameter("Total_Questions");
  out.println(quiz);
  session.setAttribute("quiz",quiz);
  session.setAttribute("currentQuestion",1);
+ session.setAttribute("Total_Questions",quiz.Total_Questions);
  response.sendRedirect("CreateQuizWithQuestions.jsp");
 
 

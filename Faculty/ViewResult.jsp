@@ -241,6 +241,8 @@ String facultyName = (String) session.getAttribute("facultyName");
             }*/
         }
     %>
+<br>
+    <div style="text-align: center;"> <a href="ViewAllQuizzes.jsp" class="btn btn-lg" style ="background-color: rgb(49, 96, 86); color: white;">View All Quizzes</a></div>
 </body>
 </html>
 

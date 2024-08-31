@@ -141,6 +141,33 @@
             font-weight: bold;
             text-align: center;
         }
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .actions button, .actions a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 24px;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .actions button {
+            background-color: #3c8b59;
+        }
+        .actions button:hover {
+            background-color: #244f37;
+        }
+        .actions a {
+            background-color: #dc3545;
+        }
+        .actions a:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -224,7 +251,11 @@
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
             
-            <div style="text-align: center"><input type="submit" value="Update Password"></div>
+            <!-- <div style="text-align: center"><input type="submit" value="Update Password"></div> -->
+            <div class="actions">
+                <button type="submit" name="Update Password">Update Password</button>
+                <a href="Profile.jsp">Cancel</a>
+            </div>
             
         </form>
         <div class="message"><%= message %></div>

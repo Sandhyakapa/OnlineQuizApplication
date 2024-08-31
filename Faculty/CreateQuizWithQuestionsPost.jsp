@@ -13,6 +13,8 @@
 Quiz quiz = (Quiz) session.getAttribute("quiz");
 // int currentQuestion = (int) session.getAttribute("currentQuestion");
 
+Integer Total_Questions = (Integer) session.getAttribute("Total_Questions");
+
     // Get the current question from the session
     Integer currentQuestionObj = (Integer) session.getAttribute("currentQuestion");
     int currentQuestion = 0;
@@ -33,7 +35,7 @@ q.Correct_Answer = (correctAnswerStr != null && !correctAnswerStr.isEmpty()) ? c
 quiz.Questions.put(currentQuestion, q);
 session.setAttribute("quiz", quiz);
 
-if (currentQuestion < 10) {
+if (currentQuestion < Total_Questions) {
     session.setAttribute("currentQuestion", ++currentQuestion);
     response.sendRedirect("CreateQuizWithQuestions.jsp");
 } else {

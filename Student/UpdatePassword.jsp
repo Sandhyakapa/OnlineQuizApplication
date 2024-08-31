@@ -1,9 +1,100 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.servlet.http.*, javax.servlet.*" %>
-<!DOCTYPE html>
-<html>
+
+        <%
+            
+            Integer studentID = (Integer) session.getAttribute("StudentId");
+            String studentEmail = (String) session.getAttribute("StudentEmailId");
+            String studentName = (String) session.getAttribute("StudentName");
+            %>
+            <!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>Online Quiz Application </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="../img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@600&family=Lobster+Two:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div> -->
+        <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
+            <a href="index.html" class="navbar-brand">
+                <h1 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>Online Quiz App</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a href="StudentHome.jsp" class="nav-item nav-link active">Dashboard</a>
+                    
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Quizzes</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View/Attempt Quizzes</a>
+                        </div>
+                    </div>
+                    <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="Profile.jsp" class="dropdown-item">View Profile</a>
+                            <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
+                            <a href="UpdatePassword.jsp" class="dropdown-item">Update password</a>
+                        </div>
+                    </div>
+
+                    <a href="Logout.jsp" class="nav-item nav-link">Logout</a>
+                </div>
+              
+            </div>
+        </nav>
+        <!-- Navbar End -->    
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= studentName %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= studentEmail %></div>
+        <br>
+        <!-- Navbar End -->
+
+
+    <!-- START -- Copy Your Form HTML code here-->
+
     <title>Update Password</title>
     <style>
         body {
@@ -31,7 +122,7 @@
             border-radius: 4px;
         }
         input[type="submit"] {
-            background-color: #ff6600;
+            background-color: #439c46;
             color: #fff;
             border: none;
             padding: 10px;
@@ -43,92 +134,138 @@
         }
         .message {
             margin: 12px 0;
+            color: brown;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .actions button, .actions a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 24px;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .actions button {
+            background-color: #3c8b59;
+        }
+        .actions button:hover {
+            background-color: #244f37;
+        }
+        .actions a {
+            background-color: #dc3545;
+        }
+        .actions a:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Update Password</h2>
-        <%
-            String message = "";
-            String currentPassword = request.getParameter("currentPassword");
-            String newPassword = request.getParameter("newPassword");
-            String confirmPassword = request.getParameter("confirmPassword");
-            Integer studentId = (Integer) session.getAttribute("StudentId");
+    <div><h3  style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Update Password</h3></div>
+    <div class="container" style="width:30%">
+        <!-- <h2>Update Password</h2> -->
+        
 
-            if (studentId == null) {
-                message = "User not logged in.";
-            } else if ("POST".equalsIgnoreCase(request.getMethod())) {
-                Connection conn = null;
-                PreparedStatement pstmt = null;
-                ResultSet rs = null;
+          
 
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    String url = "jdbc:mysql://localhost:3306/onlinequizapp";
-                    String username = "root";
-                    String password = "Sandhya@123"; 
-                    conn = DriverManager.getConnection(url, username, password);
 
-                    // Check if the current password is correct
-                    String checkPasswordSql = "SELECT Password FROM student WHERE StudentID = ?";
-                    pstmt = conn.prepareStatement(checkPasswordSql);
-                    pstmt.setInt(1, studentId);
-                    rs = pstmt.executeQuery();
+<%
+String message = "";
+String currentPassword = request.getParameter("currentPassword");
+String newPassword = request.getParameter("newPassword");
+String confirmPassword = request.getParameter("confirmPassword");
+//Integer studentId = (Integer) session.getAttribute("studentId");
 
-                    if (rs.next()) {
-                        String storedPassword = rs.getString("Password");
+if (studentID == null) {
+    message = "User not logged in.";
+} else if ("POST".equalsIgnoreCase(request.getMethod())) {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
 
-                        if (!storedPassword.equals(currentPassword)) {
-                            message = "Current password is incorrect.";
-                        } else if (newPassword == null || newPassword.isEmpty()) {
-                            message = "New password cannot be empty.";
-                        } else if (!newPassword.equals(confirmPassword)) {
-                            message = "New passwords do not match.";
-                        } else {
-                            // Update the password
-                            String updatePasswordSql = "UPDATE student SET Password = ? WHERE StudentID = ?";
-                            pstmt = conn.prepareStatement(updatePasswordSql);
-                            pstmt.setString(1, newPassword);
-                            pstmt.setInt(2, studentId);
-                            int rowsAffected = pstmt.executeUpdate();
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost:3306/onlinequizapp"; // Replace with your DB URL
+        String username = "root"; // Replace with your DB username
+        String password = "Sandhya@123"; // Replace with your DB password
+        conn = DriverManager.getConnection(url, username, password);
 
-                            if (rowsAffected > 0) {
-                                message = "Password updated successfully.";
-                                response.sendRedirect("StudentHome.jsp");
-                            } else {
-                                message = "Failed to update the password.";
-                            }
-                        }
-                    } else {
-                        message = "User not found.";
-                    }
-                } catch (Exception e) {
-                    message = "Error: " + e.getMessage();
-                } finally {
-                    try {
-                        if (rs != null) rs.close();
-                        if (pstmt != null) pstmt.close();
-                        if (conn != null) conn.close();
-                    } catch (SQLException e) {
-                        message = "Error closing resources: " + e.getMessage();
-                    }
+        // Check if the current password is correct
+        String checkPasswordSql = "SELECT Password FROM student WHERE StudentID = ?";
+        pstmt = conn.prepareStatement(checkPasswordSql);
+        pstmt.setInt(1, studentID);
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            String storedPassword = rs.getString("Password");
+
+            if (!storedPassword.equals(currentPassword)) {
+                message = "Current password is incorrect.";
+            } else if (newPassword == null || newPassword.isEmpty()) {
+                message = "New password cannot be empty.";
+            } else if (!newPassword.equals(confirmPassword)) {
+                message = "New passwords do not match.";
+            } else {
+                // Update the password
+                String updatePasswordSql = "UPDATE student SET Password = ? WHERE StudentID = ?";
+                pstmt = conn.prepareStatement(updatePasswordSql);
+                pstmt.setString(1, newPassword);
+                pstmt.setInt(2, studentID);
+                int rowsAffected = pstmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    message = "Password updated successfully.";
+                } else {
+                    message = "Failed to update the password.";
                 }
             }
-        %>
-        <form method="post" action="">
-            <label for="currentPassword">Current Password:</label>
-            <input type="password" id="currentPassword" name="currentPassword" required>
-            
-            <label for="newPassword">New Password:</label>
-            <input type="password" id="newPassword" name="newPassword" required>
-            
-            <label for="confirmPassword">Confirm New Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-            
-            <input type="submit" value="Update Password">
-        </form>
-        <div class="message"><%= message %></div>
-    </div>
+        } else {
+            message = "User not found.";
+        }
+    } catch (Exception e) {
+        message = "Error: " + e.getMessage();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            message = "Error closing resources: " + e.getMessage();
+        }
+    }
+}
+%>
+<form method="post" action="">
+<label for="currentPassword">Current Password:</label>
+<input type="password" id="currentPassword" name="currentPassword" required>
+
+<label for="newPassword">New Password:</label>
+<input type="password" id="newPassword" name="newPassword" required>
+
+<label for="confirmPassword">Confirm Password:</label>
+<input type="password" id="confirmPassword" name="confirmPassword" required>
+
+<!-- <div style="text-align: center"><input type="submit" value="Update Password"></div>
+
+
+<div style="text-align: center"> <a href="Profile.jsp">Cancel</a> </div> -->
+
+<div class="actions">
+    <button type="submit" name="Update Password">Update Password</button>
+    <a href="Profile.jsp">Cancel</a>
+</div>
+
+</form>
+<div class="message"><%= message %></div>
+</div>
+<br>
 </body>
 </html>

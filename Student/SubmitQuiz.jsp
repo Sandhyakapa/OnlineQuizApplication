@@ -78,9 +78,10 @@ try {
 
 // Fetching marks
 try {
-    sql = "SELECT count(*) as student_marks FROM question INNER JOIN student_answers ON question.Quiz_id = student_answers.Quiz_id and question.Question_ID = student_answers.Question_ID where question.Quiz_id=? and question.Correct_Answer = student_answers.Selected_Option";
+    sql = "SELECT count(*) as student_marks FROM question INNER JOIN student_answers ON question.Quiz_id = student_answers.Quiz_id and question.Question_ID = student_answers.Question_ID where question.Quiz_id=? and question.Correct_Answer = student_answers.Selected_Option AND Student_Answers.StudentID = ?";
     quizStmt = con.prepareStatement(sql);
     quizStmt.setInt(1, quiz_id);
+    quizStmt.setInt(2, StudentId);
     rs = quizStmt.executeQuery();
     int marks = 0;
     if (rs.next()) {

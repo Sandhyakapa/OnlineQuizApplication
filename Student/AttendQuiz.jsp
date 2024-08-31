@@ -95,6 +95,8 @@
                     }
                 });;
                
+
+                
             </script>
             <!-- <script>
             alert("This Quiz has been attempted already, Please check other quizzes.");
@@ -668,7 +670,7 @@
     });
 });
         window.onload = function () {
-            var duration = <%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
+            var duration = 10 ;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };
@@ -714,9 +716,9 @@
             return true;
         }
        
-        $('#btnSubmitQuiz').click(function() {
-
-            if(isTimerElapsed || confirm('Are you sure you want to Submit this Quiz?'))
+        $('#btnSubmitQuiz').click(async function() {
+           // var result =await CustomConfirmMessgaeBox();
+            if(isTimerElapsed || await CustomConfirmMessgaeBox())
           {
             clearInterval(globalTimer); 
             const mapObject = Object.fromEntries(mapStudentAnswers);
@@ -775,6 +777,37 @@
                 $('#btnSubmitQuiz').click();
             }
         }
+        
+        async function CustomConfirmMessgaeBox() {
+
+            var returnVal = false;
+            console.log("before messagebox");
+            const msgBox = await
+            Swal.fire({
+            title: 'Are you sure?',
+            html: "You want to sumbit this quiz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Submit!',
+            cancelButtonText: 'No, Cancel',
+            customClass: {
+                title: 'my-title',
+                confirmButton: 'custom-confirm-button',
+                cancelButton: 'custom-cancel-button'
+            }
+            });
+           // var result = await msgBox;
+            if (msgBox.isConfirmed) {
+            returnVal = true;
+            } else if (msgBox.dismiss == Swal.DismissReason.cancel) {
+                returnVal = false;
+            }
+            
+            console.log("after messagebox");
+            console.log("CustomConfirmMessgaeBox="+returnVal);
+            return returnVal;
+            }
+
      </script>
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
     
