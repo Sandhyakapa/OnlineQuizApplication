@@ -1,4 +1,10 @@
-
+<html>
+    <head>
+        <link href="../css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    </head>
+    <body>
 
 <%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -39,20 +45,61 @@
                 int updated_Records =  quizStmt.executeUpdate();
                 if(updated_Records <= 0){
                     %>
-        <script>
-            // JavaScript to display an alert popup
-            alert("This Quiz has been attempted already, Please check other quizzes.");
-           document.location="ViewAllQuizzes.jsp";
-        </script>
+        
+
+<script type="text/javascript">
+    // JavaScript to display an alert popup
+
+    Swal.fire({
+        title: 'Error!',
+        text: 'This Quiz has been attempted already, Please check other quizzes.',
+        icon: 'error',
+        confirmButtonText : 'ok',
+        customClass: {
+            title: 'my-title',
+            content: 'custom-content',                   
+            confirmButton: 'custom-button-error' // Apply custom class here
+                           
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect to another page
+            window.location.href = 'ViewAllQuizzes.jsp';
+        }
+    });;
+   
+</script>
     <%
                 }
                
             }
           catch (Exception e) {%>
-            <script>
+            <script type="text/javascript">
+                // JavaScript to display an alert popup
+            
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'This Quiz has been attempted already, Please check other quizzes.',
+                    icon: 'error',
+                    confirmButtonText : 'ok',
+                    customClass: {
+                        title: 'my-title',
+                        content: 'custom-content',                   
+                        confirmButton: 'custom-button-error' // Apply custom class here
+                                       
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to another page
+                        window.location.href = 'ViewAllQuizzes.jsp';
+                    }
+                });;
+               
+            </script>
+            <!-- <script>
             alert("This Quiz has been attempted already, Please check other quizzes.");
             document.location="ViewAllQuizzes.jsp";
-        </script>
+        </script> -->
             //e.printStackTrace();
            // out.println("<p>Error accessing the database: " + e.getMessage() + "</p>");
            <% }
@@ -61,9 +108,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
 
-            <head>
                 <style>
 
         button {
@@ -316,7 +361,7 @@
     <script src="../js/main.js"></script>
             </head>
 
-            <body>
+            <!-- <body> -->
                 <div class="container-xxl bg-white p-0">
                     <!-- Spinner Start -->
                     
@@ -623,7 +668,7 @@
     });
 });
         window.onload = function () {
-            var duration = 20;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
+            var duration = <%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };

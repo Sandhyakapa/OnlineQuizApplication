@@ -263,6 +263,13 @@ String facultyName1 = (String) session.getAttribute("facultyName");
                     <label for="Subject"><b>Subject:</b></label>
                 </div>
             </div>
+
+            <div class="col-sm-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control border-0" style ="pointer-events: none;" id="quizId" name="quizId" value="<%= quiz.Quiz_id %>" placeholder="quizId" >
+                    <label for="quizId"><b>Quiz ID:</b></label>
+                </div>
+            </div>
             <div class="col-sm-6">
                 <div class="form-floating">
                     <input type="date" class="form-control border-0" style ="pointer-events: none;" id="Start_date" name="Start_date" value="<%= quiz.Start_date %>" placeholder="Start Date" >

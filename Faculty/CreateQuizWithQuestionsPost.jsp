@@ -33,7 +33,7 @@ q.Correct_Answer = (correctAnswerStr != null && !correctAnswerStr.isEmpty()) ? c
 quiz.Questions.put(currentQuestion, q);
 session.setAttribute("quiz", quiz);
 
-if (currentQuestion < 3) {
+if (currentQuestion < 10) {
     session.setAttribute("currentQuestion", ++currentQuestion);
     response.sendRedirect("CreateQuizWithQuestions.jsp");
 } else {
