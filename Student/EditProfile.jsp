@@ -367,7 +367,7 @@
             </div>
             <div class="actions">
                 <button type="submit" name="update">Update Profile</button>
-                <a href="Logout.jsp">Logout</a>
+                <a href="Profile.jsp">Cancel</a>
             </div>
             <% 
                 // Display success or error message

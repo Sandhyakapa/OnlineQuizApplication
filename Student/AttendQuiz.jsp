@@ -670,7 +670,7 @@
     });
 });
         window.onload = function () {
-            var duration = 10 ;//<%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
+            var duration = <%= quiz.duration  %> * 60 ; // Convert duration from minutes to seconds
             var display = document.querySelector('#timer');
             startTimer(duration, display);
         };

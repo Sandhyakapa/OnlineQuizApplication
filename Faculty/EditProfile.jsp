@@ -156,22 +156,22 @@
                     
                     
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quiz</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Quizzes</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="CreateQuizFrontend.jsp" class="dropdown-item">Create Quiz</a>
                             <!-- <a href="EditQuiz.html" class="dropdown-item">Edit Quiz</a>
                             <a href="DeleteQuiz.html" class="dropdown-item">Delete Quiz</a> -->
-                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View Quiz</a>
+                            <a href="ViewAllQuizzes.jsp" class="dropdown-item">View All Quizzes</a>
                         </div>
                     </div>
-                    <a href="about.html" class="nav-item nav-link">View Result</a>
+                    <!-- <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a> -->
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="Profile.jsp" class="dropdown-item">View Profile</a>
                             <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
-                            <a href="UpdatePassword.jsp" class="dropdown-item">Update Profile</a>
+                            <a href="UpadePassword.jsp" class="dropdown-item">Update password</a>
                         </div>
                     </div>
 
@@ -357,7 +357,7 @@
             </div>
             <div class="actions">
                 <button type="submit" name="update">Update Profile</button>
-                <a href="logout.jsp">Logout</a>
+                <a href="Profile.jsp">Cancel</a>
             </div>
             <% 
                 // Display success or error message

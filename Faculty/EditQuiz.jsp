@@ -296,7 +296,7 @@ String facultyName1 = (String) session.getAttribute("facultyName");
 
                     <div class="col-sm-6">
                         <div class="form-floating">
-                            <input type="number" class="form-control border-0" id="Total_Questions" name="Total_Questions" value="<%= quiz.Total_Questions %>" placeholder="Total Questions">
+                            <input type="number" class="form-control border-0" id="Total_Questions" name="Total_Questions" value="<%= quiz.Total_Questions %>" placeholder="Total Questions" readonly>
                             <label for="Total_Questions"><b>Total Questions:</b></label>
                         </div>
                     </div>
