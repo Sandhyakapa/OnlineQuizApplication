@@ -166,11 +166,11 @@
             </div>
             <div class="form-group">
                 <label for="question1">Start Date:</label>
-                <input type="text" id="Start_date" name="Start_date" >
+                <input type="date" id="Start_date" name="Start_date" >
             </div>
             <div class="form-group">
                 <label for="question1">End Date:</label>
-                <input type="text" id="end_date" name="end_date" >
+                <input type="date" id="end_date" name="end_date" >
             </div>
             <div class="form-group">
                 <label for="question1">Duration:</label>
@@ -221,6 +221,14 @@
     <script src="../lib/easing/easing.min.js"></script>
     <script src="../lib/waypoints/waypoints.min.js"></script>
     <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script>
+        // Get today's date in YYYY-MM-DD format
+        var today = new Date().toISOString().split('T')[0];
+        
+        // Set the min attribute for both date inputs
+        document.getElementById('Start_date').setAttribute('min', today);
+        document.getElementById('end_date').setAttribute('min', today);
+    </script>
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>

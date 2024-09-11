@@ -1,69 +1,69 @@
 <html>
-    <head>
-        <link href="../css/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    </head>
-    <body>
-<%@ page import = "java.sql.*" %>
-   <%
-   String Email = request.getParameter("Email");
-   String Password = request.getParameter("PassWord");
+<head>
+    <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+<%@ page import="java.sql.*" %>
+<%
+    String email = request.getParameter("Email");
+    String password = request.getParameter("PassWord");
 
+    if (email != null && password != null) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-   try{
-    //out.println("Email"+Email);
-    //out.println("Password"+Password);
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
-    Statement statement = con.createStatement();
-    String sql = "select * from faculty where Email='"+Email+"' and Password='"+Password+"'";
-    //out.println(sql);
-    ResultSet rs= statement.executeQuery(sql);
-    
-    //if(Email.equals(rs.getString(2)) && Password.equals(rs.getString(5))){
-        if (rs.next()) {
-            int facultyId = rs.getInt("FacultyID");
-            String facultyName = rs.getString("Name");
-            session.setAttribute("facultyId", facultyId);
-            session.setAttribute("facultyEmail", Email);
-            session.setAttribute("facultyName", facultyName);
-            response.sendRedirect("FacultyHome.jsp");
-        } 
-    else{
-        
-        %>
+        try {
+            // Establish connection to the database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
 
-        <script type="text/javascript">
-            // JavaScript to display an alert popup
+            // Query to validate faculty credentials and check approval status
+            String sql = "SELECT FacultyID, Name, Approval_Status FROM faculty WHERE Email = ? AND Password = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, password);
 
-            Swal.fire({
-                title: 'Login Failed!',
-                text: 'Invalid EmailId or Password, Please try again!!!',
-                icon: 'error',
-                confirmButtonText : 'Login',
-                customClass: {
-                    title: 'my-title',
-                    content: 'custom-content',                   
-                    confirmButton: 'custom-button-error' // Apply custom class here
-                                   
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int facultyId = rs.getInt("FacultyID");
+                String facultyName = rs.getString("Name");
+                String approvalStatus = rs.getString("Approval_Status");
+
+                if ("Approved".equals(approvalStatus)) {
+                    // Set session attributes
+                    session.setAttribute("facultyId", facultyId);
+                    session.setAttribute("facultyEmail", email);
+                    session.setAttribute("facultyName", facultyName);
+
+                    // Redirect to faculty home page
+                    response.sendRedirect("FacultyHome.jsp");
+                } else {
+                    // Set an attribute to display an alert message
+                    session.setAttribute("loginMessage", "Your account status is: " + approvalStatus + ". Please contact the admin if needed.");
+                    response.sendRedirect("Login.html");
                 }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirect to another page
-                    window.location.href = 'Login.html';
-                }
-            });;
-           
-        </script>
-    <%
-}
+            } else {
+                // Set an attribute to display an alert message
+                session.setAttribute("loginMessage", "Invalid Email or Password. Please try again.");
+                response.sendRedirect("Login.html");
+            }
 
-   }
-   catch(Exception e){
-    out.println(e);
-   }
-
-   %>
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+%>
 </body>
 </html>

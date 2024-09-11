@@ -200,7 +200,10 @@
                     <td><%= quiz.duration %></td>
                     <td><%= quiz.Total_Questions %></td>
                     <td>
-                        <button class="operation-button view" onclick="attemptQuiz(<%= quiz.Quiz_id %>)">Attempt Quiz</button>
+                        <button class="operation-button view"
+          onclick="attemptQuiz(<%= quiz.Quiz_id %>, '<%= quiz.Start_date %>', '<%= quiz.end_date %>')">
+          Attempt Quiz
+        </button>
                        
                     </td>
                 </tr>
@@ -208,12 +211,27 @@
         </table>
     
         <script>
-            function attemptQuiz(quizId) {
+            function attemptQuiz(quizId, startDate, endDate) {
+              // Get the actual date in YYYY-MM-DD format
+              const today = new Date().toISOString().split('T')[0];
+        
+              // Check if the actual date is between the quiz start and end dates
+              if (isDateInRange(startDate, endDate, today)) {
                 window.location.href = 'ViewQuiz.jsp?quizId=' + quizId;
+              } else {
+                alert("This quiz is not currently available.");
+              }
             }
-    
-            
-        </script>
+        
+            function isDateInRange(startDate, endDate, checkDate) {
+              const startDateObj = new Date(startDate);
+              const endDateObj = new Date(endDate);
+              const checkDateObj = new Date(checkDate);
+        
+              return checkDateObj >= startDateObj && checkDateObj <= endDateObj;   
+        
+            }
+          </script>
     <!-- </body> -->
     </html>
     

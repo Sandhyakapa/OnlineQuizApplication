@@ -1,9 +1,10 @@
+<%@ page import = "java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Online Quiz Application - Preschool Website Template</title>
+    <title>Online Quiz Application </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -56,13 +57,13 @@
                     <a href="../about.html" class="nav-item nav-link">About Us</a>
         
                     
-                    <a href="../contact.html" class="nav-item nav-link">Contact Us</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
                 <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                <a href="../Student/Login.html" class="dropdown-item">As Student</a>
-                <a href="Login.html" class="dropdown-item">As Faculty</a>
+                <a href="Student/Login.html" class="dropdown-item">As Student</a>
+                <a href="" class="dropdown-item">As Faculty</a>
             </div>
             </div>
                
@@ -71,60 +72,40 @@
         <!-- Navbar End -->
 
 
-        <!-- Page Header End -->
+    <!-- START -- Copy Your Form HTML code here-->
+
+   
+    <%
+    int facultyID = Integer.parseInt(request.getParameter("facultyID"));
     
-        <!-- Page Header End -->
+    Connection conn = null;
+    PreparedStatement pstmt = null;
 
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
 
-        <!-- Appointment Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="bg-light rounded">
-                    <div class="row g-0">
-                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                            <div class="h-100 d-flex flex-column justify-content-center p-5">
-                                <h1 class="mb-4">Faculty Login</h1>
-                                <form action = "LoginProcess.jsp" method ="post">
-                                   
-                                <div class="row g-3">
-                                    <div class="col-sm-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="Email" name="Email" placeholder="Name"  required >
-                                            <label for="Email">Email Address</label>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="col-sm-6">
-                                        <div class="form-floating">
-                                            <input type="password" class="form-control border-0" id="PassWord" name="PassWord" placeholder="Child Age" required>
-                                            <label for="PassWord"> PassWord</label>
-                                        </div>
-                                    </div>
-                                  <!--<p style="font-size: 14px;color: red;" name="lblError"></p> -->  
-                                    <div class="col-sm-6">
-                                        <button class="btn btn-primary w-50 py-3" type="submit"  style="float: right;background-color:darkslategray ; "> Sign-In</button>
-                                    </div>
+        String sql = "UPDATE faculty SET Approval_Status = 'Rejected' WHERE FacultyID = ?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, facultyID);
+        int rowsUpdated = pstmt.executeUpdate();
 
-                                    <div class="col-sm-4">
-                                        <a class="btn btn-primary w-50 py-3"  style="background-color:darkgoldenrod;" href="Register.jsp">Register</a>
-                                    </div>
-                                   
-                                </div>
-                               
-                            </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
-                            <div class="position-relative h-100">
-                                <img class="position-absolute w-100 h-100 rounded" src="../img/Faculty.jpg" style="object-fit: cover;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Appointment End -->
+        if (rowsUpdated > 0) {
+            out.println("Faculty rejected successfully.");
+        } else {
+            out.println("Error rejecting faculty.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if (pstmt != null) pstmt.close();
+        if (conn != null) conn.close();
+    }
+%>
+    
+    
+
+<!--END -- Copy Your Form HTML code here-->
 
 
         <!-- Footer Start -->
@@ -146,13 +127,6 @@
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
-
-    <script>
-        // JavaScript to ensure autofocus
-        window.onload = function() {
-            document.getElementById("Email").focus();
-        };
-    </script>
 </body>
 
 </html>
