@@ -85,7 +85,7 @@
         Class.forName("com.mysql.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
 
-        String sql = "UPDATE faculty SET Approval_Status = 'Rejected' WHERE FacultyID = ?";
+        String sql = "UPDATE faculty_subject SET Approval_Status = 'Rejected' WHERE FacultyID = ?";
         pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, facultyID);
         int rowsUpdated = pstmt.executeUpdate();

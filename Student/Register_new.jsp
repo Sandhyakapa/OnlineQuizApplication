@@ -1,3 +1,43 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.*" %>
+
+<% 
+// Variables for database connection
+Connection conn1 = null;
+PreparedStatement ps1 = null;
+ResultSet rs = null;
+List<Map<String, String>> subjects = new ArrayList<>();
+
+try {
+    // Load the JDBC driver
+    Class.forName("com.mysql.cj.jdbc.Driver");
+
+    // Establish connection (replace with your DB connection details)
+    conn1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
+
+    // SQL query to fetch Subject_ID and Subject_Name from the subject table
+    String sql = "SELECT Subject_ID, Subject_Name FROM subject";
+    ps1 = conn1.prepareStatement(sql);
+    rs = ps1.executeQuery();
+
+    // Loop through result set and add subjects to the list
+    while (rs.next()) {
+        Map<String, String> subject = new HashMap<>();
+        subject.put("id", rs.getString("Subject_ID"));
+        subject.put("name", rs.getString("Subject_Name"));
+        subjects.add(subject);
+    }
+
+} catch (Exception e) {
+    e.printStackTrace();
+} finally {
+    // Close connection resources
+    if (rs != null) try { rs.close(); } catch (SQLException ignore) {}
+    if (ps1 != null) try { ps1.close(); } catch (SQLException ignore) {}
+    if (conn1 != null) try { conn1.close(); } catch (SQLException ignore) {}
+}
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,11 +74,7 @@
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
+       
         <!-- Spinner End -->
 
 
@@ -113,6 +149,21 @@
                                                 <label for="Email">Email Address</label>
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                            <label for="Subject_ID">Select Subject:</label>
+                                            <select name="Subject_ID" required>
+                                                <option value="">-- Select Subject --</option>
+                                                <% 
+                                                    for (Map<String, String> subject : subjects) { 
+                                                        // Display the subject name and use Subject_ID as the value
+                                                %>
+                                                    <option value="<%= subject.get("id") %>"><%= subject.get("name") %></option>
+                                                <% } %>
+                                            </select><br>
+                                    </div>
                                         <div class="col-sm-6">
                                             <div class="form-floating">
                                                 <input type="password" class="form-control border-0" id="PassWord" name="PassWord" placeholder="PassWord">
@@ -126,49 +177,40 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="col-sm-6">
-                                            <button class="btn btn-primary w-50 py-3" type="submit"  style="float: right;background-color:darkslategray ;">Register</button>
+                                        <div class="col-sm-12 d-flex justify-content-between">
+                                            <button type="submit" class="btn btn-primary py-3">Register</button>
+                                            <a href="../index.html" class="btn btn-warning py-3">Cancel</a>
                                         </div>
-
-                                        <div class="col-sm-4">
-                                            <a href="../index.html" class="btn btn-primary w-50 py-3"  style="background-color:darkgoldenrod;">Cancel</a>
-                                        </div>
-                                   
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
-                            <div class="position-relative h-100">
-                                <img class="position-absolute w-100 h-100 rounded" src="../img/appointment.jpg" style="object-fit: cover;">
+                        <div class="col-lg-6">
+                            <div class="h-100 position-relative">
+                                <img class="position-absolute w-100 h-100 rounded" src="../img/Faculty.jpg" style="object-fit: cover;">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Appointment End -->
+        <!-- Registration Form End -->
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Footer Start -->
-        
-        <!-- Footer End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <script>
+            function validateForm() {
+                var password = document.getElementById("PassWord").value;
+                var confirmPass = document.getElementById("ConfirmPassWord").value;
+                if (password !== confirmPass) {
+                    alert("Passwords do not match!");
+                    return false;
+                }
+                return true;
+            }
+        </script>
     </div>
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/wow/wow.min.js"></script>
-    <script src="../lib/easing/easing.min.js"></script>
-    <script src="../lib/waypoints/waypoints.min.js"></script>
-    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="../js/main.js"></script>
 </body>
-
 </html>

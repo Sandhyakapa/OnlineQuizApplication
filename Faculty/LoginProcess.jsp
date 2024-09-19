@@ -10,7 +10,7 @@
     String email = request.getParameter("Email");
     String password = request.getParameter("PassWord");
 
-    if (email != null && password != null) {
+    //if (email != null && password != null) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -21,7 +21,8 @@
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
 
             // Query to validate faculty credentials and check approval status
-            String sql = "SELECT FacultyID, Name, Approval_Status FROM faculty WHERE Email = ? AND Password = ?";
+            String sql =  "SELECT * FROM faculty WHERE Email = ? AND Password = ?";
+           // "SELECT FacultyID, Name, Approval_Status FROM faculty WHERE Email = ? AND Password = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
@@ -29,41 +30,65 @@
             rs = ps.executeQuery();
 
             if (rs.next()) {
+
+            
+                session.setAttribute("facultyId", rs.getInt(1));
+                session.setAttribute("facultyEmail",rs.getString(3));
+                session.setAttribute("facultyName", rs.getString(2));
+                //session.setAttribute("fac_Subject", rs.getString(4));
+
                 int facultyId = rs.getInt("FacultyID");
                 String facultyName = rs.getString("Name");
-                String approvalStatus = rs.getString("Approval_Status");
 
-                if ("Approved".equals(approvalStatus)) {
+                
+
+
+                String approvalQuery = "SELECT * FROM faculty_subject WHERE FacultyID = ? AND Approval_Status = 'Approved'";
+                ps = conn.prepareStatement(approvalQuery);
+                ps.setInt(1, facultyId);
+                ResultSet approvalRs = ps.executeQuery();
+
+                if (approvalRs.next()) {
                     // Set session attributes
-                    session.setAttribute("facultyId", facultyId);
-                    session.setAttribute("facultyEmail", email);
+                    session.setAttribute("FacultyID", facultyId);
                     session.setAttribute("facultyName", facultyName);
 
-                    // Redirect to faculty home page
+                    // Redirect to the student's home page
                     response.sendRedirect("FacultyHome.jsp");
                 } else {
-                    // Set an attribute to display an alert message
-                    session.setAttribute("loginMessage", "Your account status is: " + approvalStatus + ". Please contact the admin if needed.");
-                    response.sendRedirect("Login.html");
+                    // faculty is not approved for any subjects
+                    out.println("<p>You have not been approved for any subjects yet. Please wait for approval.</p>");
                 }
             } else {
-                // Set an attribute to display an alert message
-                session.setAttribute("loginMessage", "Invalid Email or Password. Please try again.");
-                response.sendRedirect("Login.html");
+                // Invalid credentials
+                %>
+                <script type="text/javascript">
+                    Swal.fire({
+                        title: 'Login Failed!',
+                        text: 'Invalid EmailId or Password, Please try again!!!',
+                        icon: 'error',
+                        confirmButtonText: 'Login',
+                        customClass: {
+                            title: 'my-title',
+                            content: 'custom-content',
+                            confirmButton: 'custom-button-error'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'Login.html'; // Redirect to login page
+                        }
+                    });
+                </script>
+                <%
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+            out.println("<p>An error occurred: " + e.getMessage() + "</p>");
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            if (rs != null) try { rs.close(); } catch (SQLException ignored) {}
+            if (ps != null) try { ps.close(); } catch (SQLException ignored) {}
+            if (conn != null) try { conn.close(); } catch (SQLException ignored) {}
         }
-    }
-%>
+    %>
 </body>
 </html>

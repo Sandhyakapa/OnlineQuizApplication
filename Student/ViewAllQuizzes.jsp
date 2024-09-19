@@ -106,9 +106,17 @@
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
                 // Fetch quizzes for the faculty
-                String quizQuery = "select * from quiz where Quiz_id not  in (select Quiz_id from attended_quizzes where StudentID = ?)";
+
+               //String quizQuery = "select * from quiz where Quiz_id not  in (select Quiz_id from attended_quizzes where StudentID = ?)";
+               //quizStmt.setInt(1,StudentId);
+                String quizQuery = "SELECT * FROM quiz q " +
+                "JOIN student_subject ss ON q.Subject_ID = ss.Subject_ID " +
+                "WHERE ss.StudentID = ? " +
+                "AND ss.Approval_Status = 'Approved' " +
+                "AND q.Quiz_id NOT IN (SELECT Quiz_id FROM attended_quizzes WHERE StudentID = ?)";
                PreparedStatement quizStmt = conn.prepareStatement(quizQuery);
                quizStmt.setInt(1,StudentId);
+               quizStmt.setInt(2, StudentId);
                     ResultSet quizRs = quizStmt.executeQuery();
                     while (quizRs.next()) {
                         Quiz quiz = new Quiz();

@@ -1,15 +1,8 @@
-<%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*,QuizApp.*" %>
-        <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-        <%
-
-        Integer AdminId = (Integer) session.getAttribute("AdminId");
-        String AdminEmailId = (String) session.getAttribute("AdminEmailId");
-        String AdminName = (String) session.getAttribute("AdminName");
-        %>
-
+<%@ page import="java.sql.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-
+<html>
 <head>
     <meta charset="utf-8">
     <title>Online Quiz Application</title>
@@ -40,16 +33,14 @@
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
-
-
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> -->
         <!-- Spinner End -->
 
 
@@ -68,7 +59,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Course management</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="AddSubject.jsp" class="dropdown-item">Add Subject</a>
+                            <a href="AddSubject.html" class="dropdown-item">Add Subject</a>
                             <a href="ManageAllSubjects.jsp" class="dropdown-item">Manage All Subjects</a>
                             
                         </div>
@@ -103,62 +94,47 @@
               
             </div>
         </nav>
-        <!-- Navbar End -->    
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= AdminEmailId %></div>
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= AdminEmailId %></div>
-        <br>
-        
-
-       <!-- Carousel Start -->
-       <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="../img/facultyhomepage.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .2);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown mb-4">Welcome, Admin</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Explore our online quiz application designed to enhance your teaching experience. Create, manage, and share quizzes effortlessly. Empower your students with interactive assessments and track their progress in real-time. Get started today and make learning more engaging and effective!
-
-                                </p>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-    </div> 
-    <!-- Carousel End -->
+        <!-- Navbar End -->
+    <title>Update Subject</title>
 
 
-    <!-- START -- Copy Your Form HTML code here-->
+    <%
+        // Get the parameters from the form submission
+        String subjectID = request.getParameter("subjectID");
+        String subjectName = request.getParameter("subjectName");
+        String subjectDescription = request.getParameter("subjectDescription");
 
-   
-<!--END -- Copy Your Form HTML code here-->
+        Connection conn = null;
+        PreparedStatement pstmt = null;
 
+        try {
+            // Establish database connection
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
 
-        <!-- Footer Start -->
-        
-        <!-- Footer End -->
+            // Update the subject name in the database
+            String updateSQL = "UPDATE subject SET Subject_Name = ?, Description = ? WHERE Subject_ID = ?";
+            pstmt = conn.prepareStatement(updateSQL);
+            pstmt.setString(1, subjectName);
+            pstmt.setString(2, subjectDescription);
+            pstmt.setInt(3, Integer.parseInt(subjectID));
 
+            int rowsUpdated = pstmt.executeUpdate();
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
+            if (rowsUpdated > 0) {
+                out.println("<h2>Subject updated successfully!</h2>");
+            } else {
+                out.println("<h2>Error updating subject. Please try again.</h2>");
+            }
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/wow/wow.min.js"></script>
-    <script src="../lib/easing/easing.min.js"></script>
-    <script src="../lib/waypoints/waypoints.min.js"></script>
-    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        }
+    %>
 
-    <!-- Template Javascript -->
-    <script src="../js/main.js"></script>
+    <a href="ManageAllSubjects.jsp">Back to Manage Subjects</a>
 </body>
-
 </html>

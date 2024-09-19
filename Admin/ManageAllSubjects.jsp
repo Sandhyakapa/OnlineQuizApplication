@@ -1,16 +1,46 @@
-<%@ page import="java.sql.*, java.util.*, javax.servlet.*, javax.servlet.http.*,QuizApp.*" %>
-        <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-        <%
-
-        Integer AdminId = (Integer) session.getAttribute("AdminId");
-        String AdminEmailId = (String) session.getAttribute("AdminEmailId");
-        String AdminName = (String) session.getAttribute("AdminName");
-        %>
-
+<%@ page import = "java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <title>Manage Subjects</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons a {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: white;
+            background-color: blue;
+            border-radius: 3px;
+        }
+
+        .action-buttons .delete {
+            background-color: red;
+        }
+    </style>
+
     <meta charset="utf-8">
     <title>Online Quiz Application</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -40,8 +70,6 @@
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
-
-
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
@@ -68,7 +96,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Course management</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="AddSubject.jsp" class="dropdown-item">Add Subject</a>
+                            <a href="AddSubject.html" class="dropdown-item">Add Subject</a>
                             <a href="ManageAllSubjects.jsp" class="dropdown-item">Manage All Subjects</a>
                             
                         </div>
@@ -103,40 +131,73 @@
               
             </div>
         </nav>
-        <!-- Navbar End -->    
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= AdminEmailId %></div>
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= AdminEmailId %></div>
-        <br>
-        
-
-       <!-- Carousel Start -->
-       <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="../img/facultyhomepage.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .2);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown mb-4">Welcome, Admin</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Explore our online quiz application designed to enhance your teaching experience. Create, manage, and share quizzes effortlessly. Empower your students with interactive assessments and track their progress in real-time. Get started today and make learning more engaging and effective!
-
-                                </p>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-    </div> 
-    <!-- Carousel End -->
+        <!-- Navbar End -->
 
 
     <!-- START -- Copy Your Form HTML code here-->
 
-   
+    <h2>Manage Subjects</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Subject ID</th>
+                <th>Subject Name</th>
+                <th>Subject Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                Connection conn = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+
+                try {
+                    // Establish database connection
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
+
+                    // Query to fetch all subjects
+                    String query = "SELECT Subject_ID, Subject_Name, Description FROM subject";
+
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(query);
+
+                    // Loop through the result set and display data
+                    while (rs.next()) {
+                        int subjectID = rs.getInt("Subject_ID");
+                        String subjectName = rs.getString("Subject_Name");
+                        String subjectDescription = rs.getString("Description");
+            %>
+            <tr>
+                <td><%= subjectID %></td>
+                <td><%= subjectName %></td>
+                <td><%= subjectDescription %></td>
+                <td class="action-buttons">
+                    <!-- Edit button -->
+                    <a href="EditSubject.jsp?subjectID=<%= subjectID %>">Edit</a>
+
+                    <!-- Delete button -->
+                    <a href="DeleteSubject.jsp?subjectID=<%= subjectID %>" class="delete"
+                       onclick="return confirm('Are you sure you want to delete this subject?');">Delete</a>
+                </td>
+            </tr>
+            <%
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (rs != null) rs.close();
+                    if (stmt != null) stmt.close();
+                    if (conn != null) conn.close();
+                }
+            %>
+        </tbody>
+    </table>
+
+
+
 <!--END -- Copy Your Form HTML code here-->
 
 

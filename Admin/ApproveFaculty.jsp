@@ -46,27 +46,51 @@
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
             <a href="index.html" class="navbar-brand">
-                <h1 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>Online Quiz Application</h1>
+                <h1 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>Online Quiz App</h1>
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="../index.html" class="nav-item nav-link">Home</a>
-                    <a href="../about.html" class="nav-item nav-link">About Us</a>
-        
+                    <a href="AdminHome.jsp" class="nav-item nav-link active">Dashboard</a>
                     
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Course management</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="AddSubject.jsp" class="dropdown-item">Add Subject</a>
+                            <a href="ManageAllSubjects.jsp" class="dropdown-item">Manage All Subjects</a>
+                            
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Student management</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="ApproveStudent.jsp" class="dropdown-item">View & Approve</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Faculty management</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="ProcessApproval.jsp" class="dropdown-item">Approve Faculty</a>
+                            <a href="ManageFaculty.jsp" class="dropdown-item">Manage Faculty</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="Profile.jsp" class="dropdown-item">View Profile</a>
+                            <a href="EditProfile.jsp" class="dropdown-item">Edit Profile</a>
+                            <a href="UpadePassword.jsp" class="dropdown-item">Update password</a>
+                        </div>
+                    </div>
+
+                    <a href="Logout.jsp" class="nav-item nav-link">logout</a>
                 </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
-                <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                <a href="Student/Login.html" class="dropdown-item">As Student</a>
-                <a href="" class="dropdown-item">As Faculty</a>
-            </div>
-            </div>
-               
+              
             </div>
         </nav>
         <!-- Navbar End -->
@@ -85,7 +109,7 @@
         Class.forName("com.mysql.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp","root","Sandhya@123");
 
-        String sql = "UPDATE faculty SET Approval_Status = 'Approved' WHERE FacultyID = ?";
+        String sql = "UPDATE faculty_subject SET Approval_Status = 'Approved' WHERE FacultyID = ?";
         pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, facultyID);
         int rowsUpdated = pstmt.executeUpdate();

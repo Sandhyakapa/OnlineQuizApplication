@@ -5,6 +5,29 @@
         Integer facultyId = (Integer) session.getAttribute("facultyId");
         String facultyEmail = (String) session.getAttribute("facultyEmail");
         String facultyName = (String) session.getAttribute("facultyName");
+        List<String> approvedSubjects = new ArrayList<>();
+    
+            try {
+                // Load MySQL JDBC Driver
+                Class.forName("com.mysql.cj.jdbc.Driver"); // Updated driver class name
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
+                
+                // Fetch approved subjects for this faculty
+                String query = "SELECT s.Subject_Name FROM faculty_subject fs JOIN subject s ON fs.Subject_ID = s.Subject_ID WHERE fs.FacultyID = ? AND fs.Approval_Status = 'Approved'";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setInt(1, facultyId); // Set the facultyId from session
+                
+                ResultSet rs = ps.executeQuery();
+                
+                // Loop through result set and add subjects to the list
+                while (rs.next()) {
+                    approvedSubjects.add(rs.getString("Subject_Name")); // Corrected column name
+                }
+                
+                con.close(); // Close connection
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         %>
         <!DOCTYPE html>
 <html lang="en">
@@ -155,11 +178,22 @@
        <p style="text-align: center;">Provide the Quiz details here and we navigate you to add questions in the following screens.</p>
         <form id="quizForm" action="CreateQuiz.jsp" method="POST">
             <div class="row g-3">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="question1">Subject:</label>
                 
                 <input type="text" id="Subject" name="Subject">
-            </div>
+            </div> -->
+
+            <div class="form-group">
+    <label for="Subject">Subject:</label>
+    <select id="Subject" name="Subject" class="form-control" required>
+        <option value="" disabled selected>Select Subject</option>
+        <% for (String subject : approvedSubjects) { %>
+            <option value="<%= subject %>"><%= subject %></option>
+        <% } %>
+    </select>
+</div>
+            
             <div class="form-group">
                 <label for="question1">Number of Questions:</label>
                 <input type="text" id="Total_Questions" name="Total_Questions" >
