@@ -43,7 +43,7 @@
                 
 
 
-                String approvalQuery = "SELECT * FROM faculty_subject WHERE FacultyID = ? AND Approval_Status = 'Approved'";
+                String approvalQuery = "SELECT Subject_ID  FROM faculty_subject WHERE FacultyID = ? AND Approval_Status = 'Approved'";
                 ps = conn.prepareStatement(approvalQuery);
                 ps.setInt(1, facultyId);
                 ResultSet approvalRs = ps.executeQuery();
@@ -52,9 +52,16 @@
                     // Set session attributes
                     session.setAttribute("FacultyID", facultyId);
                     session.setAttribute("facultyName", facultyName);
+    
+
+                    int subject_ID = approvalRs.getInt("Subject_ID");
+                    session.setAttribute("subject_ID", subject_ID);
+
 
                     // Redirect to the student's home page
+                    //out.println("subject_ID");
                     response.sendRedirect("FacultyHome.jsp");
+
                 } else {
                     // faculty is not approved for any subjects
                     out.println("<p>You have not been approved for any subjects yet. Please wait for approval.</p>");

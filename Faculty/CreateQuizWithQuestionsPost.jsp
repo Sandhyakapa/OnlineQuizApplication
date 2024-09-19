@@ -14,6 +14,7 @@ Quiz quiz = (Quiz) session.getAttribute("quiz");
 // int currentQuestion = (int) session.getAttribute("currentQuestion");
 
 Integer Total_Questions = (Integer) session.getAttribute("Total_Questions");
+Integer subject_ID = (Integer) session.getAttribute("subject_ID");
 
     // Get the current question from the session
     Integer currentQuestionObj = (Integer) session.getAttribute("currentQuestion");
@@ -46,6 +47,8 @@ if (currentQuestion < Total_Questions) {
 
 
     Integer facultyId = (Integer) session.getAttribute("facultyId");
+    // Integer Subject_ID = (Integer) session.getAttribute("Subject_ID");
+    
     if (facultyId == null) {
         response.sendRedirect("LoginProcess.jsp");
         return;
@@ -61,7 +64,7 @@ if (currentQuestion < Total_Questions) {
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
         //String sql = "insert into quiz(Subject, Start_date, end_date, Duration, Total_Questions) values(?,?,?,?,?)";
-        String sql = "insert into quiz(Subject, Start_date, end_date, Duration, Total_Questions, Created_By) values(?,?,?,?,?,?)";
+        String sql = "insert into quiz(Subject, Start_date, end_date, Duration, Total_Questions, Created_By,Subject_ID) values(?,?,?,?,?,?,?)";
         quizPs = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         quizPs.setString(1, quiz.Subject);
         quizPs.setString(2, quiz.Start_date);
@@ -69,6 +72,7 @@ if (currentQuestion < Total_Questions) {
         quizPs.setInt(4, quiz.duration);
         quizPs.setInt(5, quiz.Total_Questions);
         quizPs.setInt(6, facultyId);
+        quizPs.setInt(7, subject_ID);
         res = quizPs.executeUpdate();
 
         if (res > 0) {

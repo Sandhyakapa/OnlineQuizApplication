@@ -5,6 +5,7 @@
         Integer facultyId = (Integer) session.getAttribute("facultyId");
         String facultyEmail = (String) session.getAttribute("facultyEmail");
         String facultyName = (String) session.getAttribute("facultyName");
+        Integer subject_ID = (Integer) session.getAttribute("subject_ID");
         %>
 
 <!DOCTYPE html>
@@ -94,6 +95,7 @@
         <!-- Navbar End -->    
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= facultyName %></div>
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= facultyEmail %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= subject_ID %></div>
         <br>
         
 

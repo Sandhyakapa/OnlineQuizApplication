@@ -5,6 +5,7 @@
         Integer facultyId = (Integer) session.getAttribute("facultyId");
         String facultyEmail = (String) session.getAttribute("facultyEmail");
         String facultyName = (String) session.getAttribute("facultyName");
+        Integer subject_ID = (Integer) session.getAttribute("subject_ID");
         List<String> approvedSubjects = new ArrayList<>();
     
             try {
@@ -13,6 +14,7 @@
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
                 
                 // Fetch approved subjects for this faculty
+                
                 String query = "SELECT s.Subject_Name FROM faculty_subject fs JOIN subject s ON fs.Subject_ID = s.Subject_ID WHERE fs.FacultyID = ? AND fs.Approval_Status = 'Approved'";
                 PreparedStatement ps = con.prepareStatement(query);
                 ps.setInt(1, facultyId); // Set the facultyId from session
@@ -22,19 +24,21 @@
                 // Loop through result set and add subjects to the list
                 while (rs.next()) {
                     approvedSubjects.add(rs.getString("Subject_Name")); // Corrected column name
+                    
                 }
                 
                 con.close(); // Close connection
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            out.println("Approved subjects size: " + approvedSubjects.size());
         %>
         <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Online Quiz Application </title>
+    <title>Online Quiz Application</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -114,6 +118,8 @@
         <!-- Navbar End -->    
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= facultyName %></div>
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= facultyEmail %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= subject_ID %></div>
+
         <br>
         <!-- Navbar End -->
 

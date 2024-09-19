@@ -11,6 +11,7 @@ public class Quiz {
     int duration;
     int Total_Questions;
     int Created_by;
+    //int Subject_ID;
 
    HashMap<Integer,Question> Questions;
     public Quiz(int Quiz_id, String Subject, String Start_date, String end_date, 
@@ -23,6 +24,7 @@ public class Quiz {
         this.duration = duration;
         this.Total_Questions = Total_Questions;
         this.Quiz_id = Created_by;
+       // this.Subject_ID = Subject_ID;
 
     }
 

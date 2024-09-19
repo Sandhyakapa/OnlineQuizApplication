@@ -6,6 +6,7 @@
         String facultyEmail = (String) session.getAttribute("facultyEmail");
         String facultyName = (String) session.getAttribute("facultyName");
         Integer Total_Questions = (Integer) session.getAttribute("Total_Questions");
+        Integer subject_ID = (Integer) session.getAttribute("subject_ID");
         %> 
 
 
