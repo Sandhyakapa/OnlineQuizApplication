@@ -51,12 +51,15 @@
             border-collapse: collapse;
         }
         table, th, td {
-            border: 1px solid black;
+            border: 0px solid black;
         }
         th, td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
         }
+        th {
+                background-color: #f2f2f2;
+            }
         .button {
             padding: 8px 16px;
             text-decoration: none;
@@ -68,6 +71,36 @@
         .button.reject {
             background-color: red;
         }
+
+        
+  .approve-button {
+    background-color: #4CAF50;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .approve-button:hover {
+    background-color: #45a049;
+  }
+
+  .reject-button {
+    background-color:rgb(232, 74, 74);
+    color: white;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .reject-button:hover {
+    background-color:rgb(134, 34, 34);
+  }
+
     </style>
 </head>
     
@@ -124,11 +157,12 @@
                         </div>
                     </div>
 
-                    <a href="Logout.jsp" class="nav-item nav-link">logout</a>
+                    <a href="Logout.jsp" class="nav-item nav-link">Logout</a>
                 </div>
               
             </div>
         </nav>
+        <br>
         <!-- Navbar End -->    
        
         <!-- Navbar End -->
@@ -148,6 +182,7 @@
 
     <table border="1">
         <tr>
+            <th>S.No</th>
             <th>Student Name</th>
             <th>Subject Name</th>
             <th>Approval Status</th>
@@ -159,6 +194,7 @@
             Connection conn = null;
             PreparedStatement ps = null;
             ResultSet rs = null;
+            int recordsCount =0;
             try {
                 // Assuming you have a DataSource or DriverManager setup
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -175,6 +211,7 @@
 
                 // Loop through the result set and display in a table
                 while (rs.next()) {
+                    recordsCount++;
                     int studentId = rs.getInt("StudentID");
                     String studentName = rs.getString("StudentName");
                     String subjectName = rs.getString("Subject_Name");
@@ -183,6 +220,7 @@
                     // Display each row
                     %>
                     <tr>
+                        <td><%= recordsCount %></td>
                         <td><%= studentName %></td>
                         <td><%= subjectName %></td>
                         <td><%= approvalStatus %></td>
@@ -190,8 +228,8 @@
                             <form method="post">
                                 <input type="hidden" name="studentId" value="<%= studentId %>"/>
                                 <input type="hidden" name="subjectName" value="<%= subjectName %>"/>
-                                <button type="submit" name="action" value="approve">Approve</button>
-                                <button type="submit" name="action" value="reject">Reject</button>
+                                <button type="submit" name="action" value="approve" class="approve-button">Approve</button>
+                                <button type="submit" name="action" value="reject" class="reject-button">Reject</button>
                             </form>
 
                         

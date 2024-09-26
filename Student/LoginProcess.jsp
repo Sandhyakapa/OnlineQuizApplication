@@ -45,6 +45,7 @@
                     // Set session attributes
                     session.setAttribute("StudentID", studentId);
                     session.setAttribute("StudentName", studentName);
+                    //session.setAttribute("subject_ID", subject_ID);
 
                     // Redirect to the student's home page
                     response.sendRedirect("StudentHome.jsp");

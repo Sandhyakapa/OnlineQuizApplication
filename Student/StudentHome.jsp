@@ -6,6 +6,7 @@
         Integer StudentId = (Integer) session.getAttribute("StudentId");
         String StudentName = (String) session.getAttribute("StudentName");
         String StudentEmailId = (String) session.getAttribute("StudentEmailId");
+        Integer subject_ID = (Integer) session.getAttribute("subject_ID");
         %>
 
 
@@ -77,6 +78,14 @@
                         </div>
                     </div>
                     <a href="ViewResult.jsp" class="nav-item nav-link">View Result</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manage Enrollments</a>
+                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+                            <a href="ViewEnrolledCOurses.jsp" class="dropdown-item">View Enrolled Courses</a>
+                            <a href="AddNewCourses.jsp" class="dropdown-item">Add new Courses</a>
+                        </div>
+                    </div>
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>

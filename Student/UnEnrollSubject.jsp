@@ -2,17 +2,22 @@
         <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
         <%
 
-        Integer AdminId = (Integer) session.getAttribute("AdminId");
-        String AdminEmailId = (String) session.getAttribute("AdminEmailId");
-        String AdminName = (String) session.getAttribute("AdminName");
-        %>
+        //Integer StudentId = (Integer) session.getAttribute("StudentId");
+        //String StudentName = (String) session.getAttribute("StudentName");
+        //String StudentEmailId = (String) session.getAttribute("StudentEmailId");
 
+        //Integer StudentId = (Integer) session.getAttribute("StudentId");
+        String StudentName = (String) session.getAttribute("StudentName");
+        String StudentEmailId = (String) session.getAttribute("StudentEmailId");
+        //Integer subject_ID = (Integer) session.getAttribute("subject_ID");
+        %>
+        
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Online Quiz Application</title>
+    <title>Enroll Subject</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -40,16 +45,14 @@
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
-
-
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> -->
         <!-- Spinner End -->
 
 
@@ -112,39 +115,59 @@
             </div>
         </nav>
         <!-- Navbar End -->    
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= AdminEmailId %></div>
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= AdminEmailId %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
         <br>
-        
-
-       <!-- Carousel Start -->
-       <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="../img/facultyhomepage.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .2);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown mb-4">Welcome, Admin</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Explore our online quiz application designed to enhance your teaching experience. Create, manage, and share quizzes effortlessly. Empower your students with interactive assessments and track their progress in real-time. Get started today and make learning more engaging and effective!
-
-                                </p>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-    </div> 
-    <!-- Carousel End -->
+      
 
 
     <!-- START -- Copy Your Form HTML code here-->
 
-   
+
+    <%
+    // Retrieve StudentID from session
+    Integer StudentId = (Integer) session.getAttribute("StudentId");
+
+    // Get the selected subject ID from the form submission
+    String subjectIdStr = request.getParameter("Subject_ID");
+    if (subjectIdStr != null && !subjectIdStr.isEmpty()) {
+        int Subject_ID = Integer.parseInt(subjectIdStr);
+
+        Connection con = null;
+        PreparedStatement pst = null;
+
+        try {
+            // Establish the database connection
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "Sandhya@123");
+
+            // Query to delete the enrollment record
+            String query = "DELETE FROM student_subject WHERE StudentID = ? AND Subject_ID = ?";
+            pst = con.prepareStatement(query);
+            pst.setInt(1, StudentId); // StudentId from session
+            pst.setInt(2, Subject_ID); // SubjectId from form
+
+            int result = pst.executeUpdate();
+
+            if (result > 0) {
+                out.println("<p>Successfully unenrolled from subject ID " + Subject_ID + ".</p>");
+            } else {
+                out.println("<p>Failed to unenroll from subject ID " + Subject_ID + ". Please try again.</p>");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println("<p>An error occurred: " + e.getMessage() + "</p>");
+        } finally {
+            if (pst != null) try { pst.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (con != null) try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+    } else {
+        out.println("<p>No subject selected for unenrollment.</p>");
+    }
+%>
+
+<a href="SubjectList.jsp">Back to Subject List</a>
+
 <!--END -- Copy Your Form HTML code here-->
 
 

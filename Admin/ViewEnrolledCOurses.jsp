@@ -6,13 +6,12 @@
         String AdminEmailId = (String) session.getAttribute("AdminEmailId");
         String AdminName = (String) session.getAttribute("AdminName");
         %>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Online Quiz Application</title>
+    <title>Online Quiz Application - Preschool Website Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -39,8 +38,6 @@
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
 </head>
-
-
 
 <body>
     <div class="container-xxl bg-white p-0">
@@ -115,36 +112,15 @@
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= AdminEmailId %></div>
         <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= AdminEmailId %></div>
         <br>
-        
-
-       <!-- Carousel Start -->
-       <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="../img/facultyhomepage.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .2);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown mb-4">Welcome, Admin</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Explore our online quiz application designed to enhance your teaching experience. Create, manage, and share quizzes effortlessly. Empower your students with interactive assessments and track their progress in real-time. Get started today and make learning more engaging and effective!
-
-                                </p>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-    </div> 
-    <!-- Carousel End -->
+      
 
 
     <!-- START -- Copy Your Form HTML code here-->
 
-   
+
+
+
+
 <!--END -- Copy Your Form HTML code here-->
 
 

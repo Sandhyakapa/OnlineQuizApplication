@@ -216,6 +216,8 @@
             color: white;
             border: none;
             cursor: pointer;
+            width: 100px;
+            height: 50px;
         }
         input[type="submit"]:hover {
             background-color: #45a049;
@@ -224,6 +226,19 @@
             text-align: center;
             font-size: 1.1em;
         }
+        .cancel-button {
+    background-color:rgb(232, 74, 74);
+    color: white;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .cancel-button:hover {
+    background-color: #45a049;
+  }
     </style>
 </head>
 <body>
@@ -237,6 +252,7 @@
             <input type="text" id="subjectDescription" name="subjectDescription" required>
 
             <input type="submit" value="Add Subject">
+            <button type="submit" name="action" value="reject" class=".cancel-button">Cancel</button>
         </form>
         <div class="message">
             <%= message %>

@@ -16,7 +16,7 @@
 
         th, td {
             padding: 10px;
-            text-align: left;
+            text-align:left;
         }
 
         th {
@@ -32,8 +32,10 @@
             padding: 5px 10px;
             text-decoration: none;
             color: white;
-            background-color: blue;
+            background-color: green;
             border-radius: 3px;
+            width: 60px;
+            text-align: center;
         }
 
         .action-buttons .delete {

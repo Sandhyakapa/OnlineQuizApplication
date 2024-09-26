@@ -2,11 +2,10 @@
         <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
         <%
 
-        Integer AdminId = (Integer) session.getAttribute("AdminId");
-        String AdminEmailId = (String) session.getAttribute("AdminEmailId");
-        String AdminName = (String) session.getAttribute("AdminName");
+        //Integer StudentId = (Integer) session.getAttribute("StudentId");
+        String StudentName = (String) session.getAttribute("StudentName");
+        String StudentEmailId = (String) session.getAttribute("StudentEmailId");
         %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,8 +38,6 @@
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
 </head>
-
-
 
 <body>
     <div class="container-xxl bg-white p-0">
@@ -112,39 +109,78 @@
             </div>
         </nav>
         <!-- Navbar End -->    
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= AdminEmailId %></div>
-        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= AdminEmailId %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;">Welcome, <%= StudentName %></div>
+        <div style="text-align: right;padding-right: 30px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;color: brown;"><%= StudentEmailId %></div>
         <br>
-        
-
-       <!-- Carousel Start -->
-       <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="../img/facultyhomepage.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .2);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown mb-4">Welcome, Admin</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Explore our online quiz application designed to enhance your teaching experience. Create, manage, and share quizzes effortlessly. Empower your students with interactive assessments and track their progress in real-time. Get started today and make learning more engaging and effective!
-
-                                </p>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-    </div> 
-    <!-- Carousel End -->
+      
 
 
     <!-- START -- Copy Your Form HTML code here-->
 
    
+   
+        <h1>Subject Enrollment</h1>
+    
+        <%
+        // Retrieve StudentID from session
+        Integer StudentId = (Integer) session.getAttribute("StudentId");
+    
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+    
+        try {
+            // Establish the connection
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinequizapp", "root", "password");
+    
+            // Query to get all available subjects
+            String query = "SELECT Subject_ID, Subject_Name, Description FROM subject";
+            pst = con.prepareStatement(query);
+            rs = pst.executeQuery();
+    %>
+    
+    <h3>Available Subjects</h3>
+    <table border="1">
+        <tr>
+            <th>Subject ID</th> <!-- Added Subject ID column -->
+            <th>Subject Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <%
+            while (rs.next()) {
+                int Subject_ID = rs.getInt("Subject_ID");
+                String subjectName = rs.getString("Subject_Name");
+                String description = rs.getString("Description");
+        %>
+            <tr>
+                <td><%= Subject_ID %></td> <!-- Display Subject ID -->
+                <td><%= subjectName %></td>
+                <td><%= description %></td>
+                <td>
+                    <!-- Form to enroll in this specific subject -->
+                    <form action="EnrollSubject.jsp" method="post">
+                        <input type="hidden" name="subjectId" value="<%= subjectId %>">
+                        <input type="submit" value="Enroll">
+                    </form>
+                </td>
+            </tr>
+        <%
+            }
+        %>
+    </table>
+    
+    <%
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (pst != null) try { pst.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (con != null) try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+    %>
+
 <!--END -- Copy Your Form HTML code here-->
 
 
